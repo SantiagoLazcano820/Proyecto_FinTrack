@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8C309D39-82BD-4FC6-B2D7-5677CB6A5139}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.infraestructure\\data\\configurations\\roleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C309D39-82BD-4FC6-B2D7-5677CB6A5139}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|solutionrelative:fintrack.infraestructure\\data\\configurations\\roleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C309D39-82BD-4FC6-B2D7-5677CB6A5139}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.infraestructure\\data\\configurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C309D39-82BD-4FC6-B2D7-5677CB6A5139}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|solutionrelative:fintrack.infraestructure\\data\\configurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C309D39-82BD-4FC6-B2D7-5677CB6A5139}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.infraestructure\\data\\fintrackcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C309D39-82BD-4FC6-B2D7-5677CB6A5139}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|solutionrelative:fintrack.infraestructure\\data\\fintrackcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{859D15B6-EA02-465B-A36E-24842F79EB02}|FinTrack\\FinTrack.core.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack\\entities\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{859D15B6-EA02-465B-A36E-24842F79EB02}|FinTrack\\FinTrack.core.csproj|solutionrelative:fintrack\\entities\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{859D15B6-EA02-465B-A36E-24842F79EB02}|FinTrack\\FinTrack.core.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{859D15B6-EA02-465B-A36E-24842F79EB02}|FinTrack\\FinTrack.core.csproj|solutionrelative:fintrack\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C32CFF6F-4A9C-4EF9-A8C0-56AB738D2183}|FinTrack.Api\\FinTrack.Api.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C32CFF6F-4A9C-4EF9-A8C0-56AB738D2183}|FinTrack.Api\\FinTrack.Api.csproj|solutionrelative:fintrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C32CFF6F-4A9C-4EF9-A8C0-56AB738D2183}|FinTrack.Api\\FinTrack.Api.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C32CFF6F-4A9C-4EF9-A8C0-56AB738D2183}|FinTrack.Api\\FinTrack.Api.csproj|solutionrelative:fintrack.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "FinTrack.Api\\appsettings.json",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\appsettings.json",
+              "RelativeToolTip": "FinTrack.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-11T01:50:32.601Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Program.cs",
+              "RelativeDocumentMoniker": "FinTrack.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Program.cs",
+              "RelativeToolTip": "FinTrack.Api\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:47:57.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "FinTrack\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\User.cs",
+              "RelativeToolTip": "FinTrack\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:41:35.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\Role.cs",
+              "RelativeDocumentMoniker": "FinTrack\\Entities\\Role.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\Role.cs",
+              "RelativeToolTip": "FinTrack\\Entities\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:40:53.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FinTrackContext.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\FinTrackContext.cs",
+              "RelativeDocumentMoniker": "FinTrack.Infraestructure\\Data\\FinTrackContext.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\FinTrackContext.cs",
+              "RelativeToolTip": "FinTrack.Infraestructure\\Data\\FinTrackContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T00:29:31.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\Configurations\\UserConfiguration.cs",
+              "RelativeDocumentMoniker": "FinTrack.Infraestructure\\Data\\Configurations\\UserConfiguration.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\Configurations\\UserConfiguration.cs",
+              "RelativeToolTip": "FinTrack.Infraestructure\\Data\\Configurations\\UserConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T00:29:24.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RoleConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\Configurations\\RoleConfiguration.cs",
+              "RelativeDocumentMoniker": "FinTrack.Infraestructure\\Data\\Configurations\\RoleConfiguration.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\Configurations\\RoleConfiguration.cs",
+              "RelativeToolTip": "FinTrack.Infraestructure\\Data\\Configurations\\RoleConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T00:29:22.487Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
