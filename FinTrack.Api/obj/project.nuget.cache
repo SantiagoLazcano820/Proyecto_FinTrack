@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "zqmJyuVlEV0=",
+  "dgSpecHash": "JcpnK4YwAk8=",
   "success": true,
   "projectFilePath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\FinTrack.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Santiago\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\9.0.13\\microsoft.aspnetcore.jsonpatch.9.0.13.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\9.0.13\\microsoft.aspnetcore.mvc.newtonsoftjson.9.0.13.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.2\\microsoft.aspnetcore.openapi.10.0.2.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.build.framework\\17.8.43\\microsoft.build.framework.17.8.43.nupkg.sha512",
@@ -24,6 +26,8 @@
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\mysqlconnector\\2.4.0\\mysqlconnector.2.4.0.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\9.0.0\\pomelo.entityframeworkcore.mysql.9.0.0.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\system.composition\\7.0.0\\system.composition.7.0.0.nupkg.sha512",

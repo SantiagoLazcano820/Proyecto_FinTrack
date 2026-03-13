@@ -9,7 +9,7 @@ public partial class DbFinTrackContext : DbContext
     public DbFinTrackContext()
     {
     }
-
+    
     public DbFinTrackContext(DbContextOptions<DbFinTrackContext> options)
         : base(options)
     {

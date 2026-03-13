@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("FinTrack.core")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("FinTrack.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("FinTrack.core")]
-[assembly: System.Reflection.AssemblyTitleAttribute("FinTrack.core")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e184fee2e8c90dfc73b5e868ded56620ecee2ce")]
+[assembly: System.Reflection.AssemblyProductAttribute("FinTrack.Core")]
+[assembly: System.Reflection.AssemblyTitleAttribute("FinTrack.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

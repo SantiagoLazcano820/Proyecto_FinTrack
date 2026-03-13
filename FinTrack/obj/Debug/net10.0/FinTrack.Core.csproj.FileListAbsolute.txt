@@ -9,3 +9,4 @@ C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack\obj\Debug\net10.0\FinTra
 C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack\obj\Debug\net10.0\refint\FinTrack.Core.dll
 C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack\obj\Debug\net10.0\FinTrack.Core.pdb
 C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack\obj\Debug\net10.0\ref\FinTrack.Core.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack\obj\Debug\net10.0\FinTrack.Core.sourcelink.json

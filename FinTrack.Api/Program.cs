@@ -1,5 +1,7 @@
 
+using FinTrack.Core.Interfaces;
 using FinTrack.Infraestructure.Data;
+using FinTrack.Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinTrack.Api
@@ -10,16 +12,23 @@ namespace FinTrack.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Add services to the container.
+
             #region Configurar la BD MySql
             var connectionString = builder.Configuration.GetConnectionString("ConnectionMySql");
             builder.Services.AddDbContext<DbFinTrackContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             #endregion
 
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
-            // Add services to the container.
+            builder.Services.AddControllers().AddNewtonsoftJson(
+                options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                }
+                );
 
-            builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
