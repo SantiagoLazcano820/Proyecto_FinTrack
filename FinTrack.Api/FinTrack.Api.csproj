@@ -19,4 +19,8 @@
     <ProjectReference Include="..\FinTrack.Infraestructure\FinTrack.Infraestructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

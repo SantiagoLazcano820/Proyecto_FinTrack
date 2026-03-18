@@ -1,4 +1,4 @@
-﻿using FinTrack.Core.Entities;
+using FinTrack.Core.Entities;
 using FinTrack.Core.Interfaces;
 using FinTrack.Infraestructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +40,12 @@ namespace FinTrack.Infraestructure.Repositories
         public async Task UpdateUser(User user)
         {
             _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteUser(User user)
+        {
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
     }
