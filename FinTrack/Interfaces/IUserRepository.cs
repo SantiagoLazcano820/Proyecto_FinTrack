@@ -9,5 +9,6 @@ namespace FinTrack.Core.Interfaces
         Task<User> GetUserByEmailAsync(string email);
         Task InsertUser(User user);
         Task UpdateUser(User user);
+        Task DeleteUser(User user);
     }
 }

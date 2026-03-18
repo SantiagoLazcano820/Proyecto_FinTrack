@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|solutionrelative:fintrack\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|solutionrelative:fintrack.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|solutionrelative:fintrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|solutionrelative:fintrack\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AE23106E-DEBC-4FFE-6246-1F61F0ED8A48}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.infraestructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,27 +27,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Program.cs",
-              "RelativeDocumentMoniker": "FinTrack.Api\\Program.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Program.cs",
-              "RelativeToolTip": "FinTrack.Api\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-13T21:39:38.921Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "IUserRepository.cs",
               "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Interfaces\\IUserRepository.cs",
               "RelativeDocumentMoniker": "FinTrack\\Interfaces\\IUserRepository.cs",
               "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Interfaces\\IUserRepository.cs",
               "RelativeToolTip": "FinTrack\\Interfaces\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-13T21:33:07.894Z",
+              "WhenOpened": "2026-03-18T21:03:56.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "FinTrack.Api\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Controllers\\UserController.cs",
+              "RelativeToolTip": "FinTrack.Api\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T21:02:41.822Z",
               "EditorCaption": ""
             },
             {
@@ -58,7 +58,7 @@
               "RelativeDocumentMoniker": "FinTrack.Infraestructure\\Repositories\\UserRepository.cs",
               "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Repositories\\UserRepository.cs",
               "RelativeToolTip": "FinTrack.Infraestructure\\Repositories\\UserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAIwC0AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-13T20:25:18.453Z",
               "EditorCaption": ""
