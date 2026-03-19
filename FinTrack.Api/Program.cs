@@ -16,11 +16,13 @@ namespace FinTrack.Api
 
             #region Configurar la BD MySql
             var connectionString = builder.Configuration.GetConnectionString("ConnectionMySql");
-            builder.Services.AddDbContext<DbFinTrackContext>(options =>
+            builder.Services.AddDbContext<FinTrackContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             #endregion
 
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             builder.Services.AddControllers().AddNewtonsoftJson(
                 options =>

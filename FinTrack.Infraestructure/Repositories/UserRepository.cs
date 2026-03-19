@@ -7,8 +7,8 @@ namespace FinTrack.Infraestructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DbFinTrackContext _context;
-        public UserRepository(DbFinTrackContext context)
+        private readonly FinTrackContext _context;
+        public UserRepository(FinTrackContext context)
         {
             _context = context;
         }
