@@ -19,7 +19,7 @@ namespace FinTrack.Infraestructure.Repositories
             return await _context.Transactions.Include(x => x.User).Include(x => x.Category).ToListAsync();
         }
 
-        public async Task<Transaction> GetTransactionByIdAsync(int id)
+        public async Task<Transaction?> GetTransactionByIdAsync(int id)
         {
             return await _context.Transactions.Include(x => x.User).Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
         }

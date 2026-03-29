@@ -1,7 +1,9 @@
-﻿using FinTrack.Core.DTOs;
-using FinTrack.Core.Entities;
+using FinTrack.Core.DTOs;
 using FinTrack.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using FinTrack.Api.Responses;
+using FluentValidation;
+using FinTrack.Core.Validations;
 
 namespace FinTrack.Api.Controllers
 {
@@ -9,70 +11,67 @@ namespace FinTrack.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
+        private readonly CrearUserValidator _crearValidator;
+        private readonly ActualizarUserValidator _actualizarValidator;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService, CrearUserValidator crearValidator, ActualizarUserValidator actualizarValidator)
         {
-            _userRepository = userRepository;
+            _userService = userService;
+            _crearValidator = crearValidator;
+            _actualizarValidator = actualizarValidator;
         }
 
         // GET: api/User/dto
         [HttpGet("dto")]
         public async Task<IActionResult> GetUsersDto()
         {
-            var users = await _userRepository.GetAllUsersAsync();
-
-            var usersDto = users.Select(u => new UserDto
-            {
-                Id = u.Id,
-                RoleId = u.RoleId,
-                Name = u.Name,
-                LastName = u.LastName,
-                Email = u.Email
-            });
-
-            return Ok(usersDto);
+            var usersDto = await _userService.GetUsersAsync();
+            var response = new ApiResponse<IEnumerable<UserDto>>(usersDto);
+            return Ok(response);
         }
 
         // GET: api/User/dto/5
         [HttpGet("dto/{id}")]
         public async Task<IActionResult> GetUserByIdDto(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null)
+            var userDto = await _userService.GetUserByIdAsync(id);
+            if (userDto == null)
             {
                 return NotFound("Usuario no encontrado.");
             }
 
-            var userDto = new UserDto
-            {
-                Id = user.Id,
-                RoleId = user.RoleId,
-                Name = user.Name,
-                LastName = user.LastName,
-                Email = user.Email
-            };
-
-            return Ok(userDto);
+            var response = new ApiResponse<UserDto>(userDto);
+            return Ok(response);
         }
 
         [HttpPost("dto")]
-        public async Task<IActionResult> InsertUserDto(UserDto userDto)
+        public async Task<IActionResult> InsertUserDto([FromBody] UserDto userDto)
         {
-            var user = new User
+            var validationResult = await _crearValidator.ValidateAsync(userDto);
+            if (!validationResult.IsValid)
             {
-                RoleId = userDto.RoleId,
-                Name = userDto.Name,
-                LastName = userDto.LastName,
-                Email = userDto.Email,
-                Password = "ChangeMe123!",
-                IsActive = 1
-            };
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new
+                    {
+                        field = e.PropertyName,
+                        error = e.ErrorMessage
+                    })
+                });
+            }
 
-            await _userRepository.InsertUser(user);
-
-            userDto.Id = user.Id;
-            return CreatedAtAction(nameof(GetUserByIdDto), new { id = userDto.Id }, userDto);
+            try
+            {
+                var createdUserDto = await _userService.InsertUserAsync(userDto);
+                var response = new ApiResponse<UserDto>(createdUserDto);
+                return CreatedAtAction(nameof(GetUserByIdDto), new { id = createdUserDto.Id }, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al crear el usuario", error = ex.Message });
+            }
         }
 
         // PUT: api/User/dto/5
@@ -80,33 +79,47 @@ namespace FinTrack.Api.Controllers
         public async Task<IActionResult> UpdateUserDto(int id, [FromBody] UserDto userDto)
         {
             if (id != userDto.Id)
-                return BadRequest("El ID no coincide.");
+                return BadRequest("El ID del usuario no coincide.");
 
-            var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null)
-                return NotFound("Usuario no existente.");
+            var validationResult = await _actualizarValidator.ValidateAsync(userDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new
+                    {
+                        field = e.PropertyName,
+                        error = e.ErrorMessage
+                    })
+                });
+            }
 
-            user.RoleId = userDto.RoleId;
-            user.Name = userDto.Name;
-            user.LastName = userDto.LastName;
-            user.Email = userDto.Email;
+            try
+            {
+                var updated = await _userService.UpdateUserAsync(id, userDto);
+                if (!updated)
+                    return NotFound("Usuario no existente.");
 
-            await _userRepository.UpdateUser(user);
-            return NoContent();
+                return Ok(new ApiResponse<bool>(true));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al actualizar el usuario", error = ex.Message });
+            }
         }
 
         // DELETE: api/User/dto/5
         [HttpDelete("dto/{id}")]
         public async Task<IActionResult> DeleteUserDto(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null)
+            var deleted = await _userService.DeleteUserAsync(id);
+            if (!deleted)
             {
-                return NotFound();
+                return NotFound("Usuario no encontrado.");
             }
 
-            await _userRepository.DeleteUser(user);
-            return NoContent();
+            return Ok(new ApiResponse<bool>(true));
         }
     }
 }

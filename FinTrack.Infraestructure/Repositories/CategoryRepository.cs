@@ -1,4 +1,4 @@
-﻿using FinTrack.Core.Entities;
+using FinTrack.Core.Entities;
 using FinTrack.Core.Interfaces;
 using FinTrack.Infraestructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +19,14 @@ namespace FinTrack.Infraestructure.Repositories
             return await _context.Categories.ToListAsync();
         }
 
-        public async Task<Category> GetCategoryByIdAsync(int id)
+        public async Task<Category?> GetCategoryByIdAsync(int id)
         {
             return await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Category?> GetByNameAsync(string name)
+        {
+            return await _context.Categories.FirstOrDefaultAsync(x => x.Name == name);
         }
 
         public async Task InsertCategoryAsync(Category category)

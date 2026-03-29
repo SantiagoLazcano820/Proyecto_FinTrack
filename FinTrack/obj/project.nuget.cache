@@ -1,8 +1,27 @@
 {
   "version": 2,
-  "dgSpecHash": "jOGxgOECUdw=",
+  "dgSpecHash": "xB/QB2BDjRM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\FinTrack.Core.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "projectFilePath": "C:\\Users\\Javi\\source\\repos\\Proyecto_FinTrack\\FinTrack\\FinTrack.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Javi\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\Javi\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\Javi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Javi\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\Javi\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "El paquete \"AutoMapper\" 13.0.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
+      "projectPath": "C:\\Users\\Javi\\source\\repos\\Proyecto_FinTrack\\FinTrack\\FinTrack.Core.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Javi\\source\\repos\\Proyecto_FinTrack\\FinTrack\\FinTrack.Core.csproj",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

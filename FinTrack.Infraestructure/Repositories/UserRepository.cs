@@ -19,13 +19,13 @@ namespace FinTrack.Infraestructure.Repositories
             return users;
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
             var user = await _context.Users.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
             return user;
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
             var user = await _context.Users.Include(x => x.Role).FirstOrDefaultAsync(x => x.Email == email);
             return user;

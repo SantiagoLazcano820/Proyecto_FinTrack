@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="FinTrack.Api/FinTrack.Api.csproj" />
   <Project Path="FinTrack.Infraestructure/FinTrack.Infraestructure.csproj" />
+  <Project Path="FinTrack.Services/FinTrack.Services.csproj" />
   <Project Path="FinTrack/FinTrack.Core.csproj" />
 </Solution>

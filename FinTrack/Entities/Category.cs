@@ -1,4 +1,4 @@
-﻿namespace FinTrack.Core.Entities;
+namespace FinTrack.Core.Entities;
 
 public partial class Category
 {
@@ -8,7 +8,7 @@ public partial class Category
 
     public string? Description { get; set; }
 
-    public ulong IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

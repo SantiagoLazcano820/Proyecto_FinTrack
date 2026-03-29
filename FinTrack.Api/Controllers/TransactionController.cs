@@ -1,7 +1,9 @@
-﻿using FinTrack.Core.DTOs;
-using FinTrack.Core.Entities;
+using FinTrack.Core.DTOs;
 using FinTrack.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using FinTrack.Api.Responses;
+using FluentValidation;
+using FinTrack.Core.Validations;
 
 namespace FinTrack.Api.Controllers
 {
@@ -9,68 +11,111 @@ namespace FinTrack.Api.Controllers
     [ApiController]
     public class TransactionController : ControllerBase
     {
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly ITransactionService _transactionService;
+        private readonly CrearTransactionValidator _crearValidator;
+        private readonly ActualizarTransactionValidator _actualizarValidator;
 
-        public TransactionController(ITransactionRepository transactionRepository)
+        public TransactionController(ITransactionService transactionService, CrearTransactionValidator crearValidator, ActualizarTransactionValidator actualizarValidator)
         {
-            _transactionRepository = transactionRepository;
+            _transactionService = transactionService;
+            _crearValidator = crearValidator;
+            _actualizarValidator = actualizarValidator;
         }
 
         [HttpGet("dto")]
         public async Task<IActionResult> GetTransactionsDto()
         {
-            var transactions = await _transactionRepository.GetTransactionsAsync();
-            var transactionsDto = transactions.Select(t => new TransactionDto
+            var transactionsDto = await _transactionService.GetTransactionsAsync();
+            var response = new ApiResponse<IEnumerable<TransactionDto>>(transactionsDto);
+            return Ok(response);
+        }
+
+        [HttpGet("dto/balance/{userId}")]
+        public async Task<IActionResult> GetUserBalance(int userId)
+        {
+            try
             {
-                Id = t.Id,
-                UserId = t.UserId,
-                CategoryId = t.CategoryId,
-                Amount = t.Amount,
-                Type = t.Type,
-                Date = t.Date.ToString("dd-MM-yyyy")
-            });
-            return Ok(transactionsDto);
+                var balance = await _transactionService.GetUserBalanceAsync(userId);
+                var response = new ApiResponse<decimal>(balance);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al calcular el balance", error = ex.Message });
+            }
         }
 
         [HttpPost("dto")]
-        public async Task<IActionResult> RegisterTransactionDto(TransactionDto transactionDto)
+        public async Task<IActionResult> RegisterTransactionDto([FromBody] TransactionDto transactionDto)
         {
-            var transaction = new Transaction
+            var validationResult = await _crearValidator.ValidateAsync(transactionDto);
+            if (!validationResult.IsValid)
             {
-                UserId = transactionDto.UserId,
-                CategoryId = transactionDto.CategoryId,
-                Amount = transactionDto.Amount,
-                Type = transactionDto.Type,
-                Date = DateTime.Now,
-                Description = "Registro desde API"
-            };
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new
+                    {
+                        field = e.PropertyName,
+                        error = e.ErrorMessage
+                    })
+                });
+            }
 
-            await _transactionRepository.InsertTransactionAsync(transaction);
-            transactionDto.Id = transaction.Id;
-            return Ok(transactionDto);
+            try
+            {
+                var createdTransactionDto = await _transactionService.RegisterTransactionAsync(transactionDto);
+                var response = new ApiResponse<TransactionDto>(createdTransactionDto);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al registrar la transacción", error = ex.Message });
+            }
         }
 
         [HttpPut("dto/{id}")]
         public async Task<IActionResult> UpdateTransactionDto(int id, [FromBody] TransactionDto dto)
         {
-            if (id != dto.Id) return BadRequest("ID no coincide");
+            if (id != dto.Id) 
+                return BadRequest("El ID de la transacción no coincide.");
 
-            var transaction = await _transactionRepository.GetTransactionByIdAsync(id);
-            if (transaction == null) return NotFound();
+            var validationResult = await _actualizarValidator.ValidateAsync(dto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new
+                    {
+                        field = e.PropertyName,
+                        error = e.ErrorMessage
+                    })
+                });
+            }
 
-            transaction.Amount = dto.Amount;
-            transaction.CategoryId = dto.CategoryId;
-            transaction.Type = dto.Type;
+            try
+            {
+                var updated = await _transactionService.UpdateTransactionAsync(id, dto);
+                if (!updated) 
+                    return NotFound("Transacción no encontrada.");
 
-            await _transactionRepository.UpdateTransactionAsync(transaction);
-            return NoContent();
+                return Ok(new ApiResponse<bool>(true));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al actualizar la transacción", error = ex.Message });
+            }
         }
 
         [HttpDelete("dto/{id}")]
         public async Task<IActionResult> DeleteTransactionDto(int id)
         {
-            await _transactionRepository.DeleteTransactionAsync(id);
-            return NoContent();
+            var deleted = await _transactionService.DeleteTransactionAsync(id);
+            if (!deleted) 
+                return NotFound("Transacción no encontrada.");
+
+            return Ok(new ApiResponse<bool>(true));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace FinTrack.Core.Entities;
+namespace FinTrack.Core.Entities;
 
 public partial class User
 {
@@ -14,7 +14,7 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public ulong IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual Role Role { get; set; } = null!;
 }
