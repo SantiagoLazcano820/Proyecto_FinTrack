@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="FinTrack.Api/FinTrack.Api.csproj" />
   <Project Path="FinTrack.Infraestructure/FinTrack.Infraestructure.csproj" />
+  <Project Path="FinTrack.Services/FinTrack.Services.csproj" Id="f2729eb9-267a-4382-859d-68e17df28a12" />
   <Project Path="FinTrack/FinTrack.Core.csproj" />
 </Solution>

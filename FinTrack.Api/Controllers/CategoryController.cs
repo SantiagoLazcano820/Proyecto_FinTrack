@@ -1,6 +1,10 @@
-﻿using FinTrack.Core.DTOs;
+﻿using AutoMapper;
+using FinTrack.API.Responses;
+using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
 using FinTrack.Core.Interfaces;
+using FinTrack.Services.Interfaces;
+using FinTrack.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinTrack.Api.Controllers
@@ -9,60 +13,125 @@ namespace FinTrack.Api.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
+        //private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryService _categoryService;
+        private readonly IMapper _mapper;
+        private readonly CrearCategoryDtoValidator _crearValidator;
+        private readonly ActualizarCategoryDtoValidator _actualizarValidator;
 
-        public CategoryController(ICategoryRepository categoryRepository)
+        public CategoryController(
+            IMapper mapper,
+            ICategoryService categoryService,
+            //ICategoryRepository categoryRepository,
+            CrearCategoryDtoValidator crearValidator,
+            ActualizarCategoryDtoValidator actualizarValidator)
         {
-            _categoryRepository = categoryRepository;
+            //_categoryRepository = categoryRepository;
+            _categoryService = categoryService;
+            _mapper = mapper;
+            _crearValidator = crearValidator;
+            _actualizarValidator = actualizarValidator;
         }
 
-        [HttpGet("dto")]
-        public async Task<IActionResult> GetCategoriesDto()
+        #region Con Dto Mapper
+        [HttpGet("dto/mapper/")]
+        public async Task<IActionResult> GetCategoriesDtoMapper()
         {
-            var categories = await _categoryRepository.GetCategoriesAsync();
-            var categoriesDto = categories.Select(c => new CategoryDto
+            var categories = await _categoryService.GetCategoriesAsync();
+            var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+            var response = new ApiResponse<IEnumerable<CategoryDto>>(categoriesDto);
+            return Ok(response);
+        }
+
+        [HttpGet("dto/mapper/{id}")]
+        public async Task<IActionResult> GetCategoryByIdDtoMapper(int id)
+        {
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
+                return NotFound("Categoría no encontrada.");
+
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+            var response = new ApiResponse<CategoryDto>(categoryDto);
+            return Ok(response);
+        }
+
+        [HttpPost("dto/mapper/")]
+        public async Task<IActionResult> InsertCategoryDtoMapper(CategoryDto categoryDto)
+        {
+            var validationResult = await _crearValidator.ValidateAsync(categoryDto);
+            if (!validationResult.IsValid)
             {
-                Id = c.Id,
-                Name = c.Name,
-                Description = c.Description
-            });
-            return Ok(categoriesDto);
-        }
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
+                });
+            }
 
-        [HttpPost("dto")]
-        public async Task<IActionResult> InsertCategoryDto(CategoryDto categoryDto)
-        {
-            var category = new Category
+            try
             {
-                Name = categoryDto.Name,
-                Description = categoryDto.Description,
-                IsActive = 1
-            };
-            await _categoryRepository.InsertCategoryAsync(category);
-            categoryDto.Id = category.Id;
-            return Ok(categoryDto);
+                var category = _mapper.Map<Category>(categoryDto);
+                await _categoryService.InsertCategory(category);
+                var response = new ApiResponse<Category>(category);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al crear la categoría", error = ex.Message });
+            }
         }
 
-        [HttpPut("dto/{id}")]
-        public async Task<IActionResult> UpdateCategoryDto(int id, [FromBody] CategoryDto categoryDto)
+        [HttpPut("dto/mapper/{id}")]
+        public async Task<IActionResult> UpdateCategoryDtoMapper(int id, [FromBody] CategoryDto categoryDto)
         {
-            if (id != categoryDto.Id) return BadRequest("ID no coincide");
+            if (id != categoryDto.Id)
+                return BadRequest("El ID de la categoría no coincide.");
 
-            var category = await _categoryRepository.GetCategoryByIdAsync(id);
-            if (category == null) return NotFound();
+            var validationResult = await _actualizarValidator.ValidateAsync(categoryDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
+                });
+            }
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
+                return NotFound("Categoría no encontrada.");
 
-            category.Name = categoryDto.Name;
-            category.Description = categoryDto.Description;
-
-            await _categoryRepository.UpdateCategoryAsync(category);
-            return NoContent();
+            try
+            {
+                _mapper.Map(categoryDto, category);
+                await _categoryService.UpdateCategory(category);
+                var response = new ApiResponse<Category>(category);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al actualizar la categoría", error = ex.Message });
+            }
         }
 
-        [HttpDelete("dto/{id}")]
-        public async Task<IActionResult> DeleteCategoryDto(int id)
+        [HttpDelete("dto/mapper/{id}")]
+        public async Task<IActionResult> DeleteCategoryDtoMapper(int id)
         {
-            await _categoryRepository.DeleteCategoryAsync(id);
-            return NoContent();
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
+                return NotFound("Categoría no encontrada.");
+
+            try
+            {
+                await _categoryService.DeleteCategory(id);
+                var response = new ApiResponse<bool>(true);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al eliminar la categoría", error = ex.Message });
+            }
         }
+        #endregion
     }
 }

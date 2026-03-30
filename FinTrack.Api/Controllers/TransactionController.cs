@@ -1,6 +1,9 @@
-﻿using FinTrack.Core.DTOs;
+﻿using AutoMapper;
+using FinTrack.API.Responses;
+using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
-using FinTrack.Core.Interfaces;
+using FinTrack.Services.Interfaces;
+using FinTrack.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinTrack.Api.Controllers
@@ -9,68 +12,124 @@ namespace FinTrack.Api.Controllers
     [ApiController]
     public class TransactionController : ControllerBase
     {
-        private readonly ITransactionRepository _transactionRepository;
+        //private readonly ITransactionRepository _transactionRepository;
+        private readonly ITransactionService _transactionService;
+        private readonly IMapper _mapper;
+        private readonly CrearTransactionDtoValidator _crearValidator;
+        private readonly ActualizarTransactionDtoValidator _actualizarValidator;
 
-        public TransactionController(ITransactionRepository transactionRepository)
+        public TransactionController(
+            IMapper mapper,
+            //ITransactionRepository transactionRepository,
+            ITransactionService transactionService,
+            CrearTransactionDtoValidator crearValidator,
+            ActualizarTransactionDtoValidator actualizarValidator)
         {
-            _transactionRepository = transactionRepository;
+            //_transactionRepository = transactionRepository;
+            _transactionService = transactionService;
+            _mapper = mapper;
+            _crearValidator = crearValidator;
+            _actualizarValidator = actualizarValidator;
         }
 
-        [HttpGet("dto")]
-        public async Task<IActionResult> GetTransactionsDto()
+        #region Con Dto Mapper
+        [HttpGet("dto/mapper/")]
+        public async Task<IActionResult> GetTransactionsDtoMapper()
         {
-            var transactions = await _transactionRepository.GetTransactionsAsync();
-            var transactionsDto = transactions.Select(t => new TransactionDto
+            var transactions = await _transactionService.GetTransactionsAsync();
+            var transactionsDto = _mapper.Map<IEnumerable<TransactionDto>>(transactions);
+            var response = new ApiResponse<IEnumerable<TransactionDto>>(transactionsDto);
+            return Ok(response);
+        }
+
+        [HttpGet("dto/mapper/{id}")]
+        public async Task<IActionResult> GetTransactionByIdDtoMapper(int id)
+        {
+            var transaction = await _transactionService.GetTransactionByIdAsync(id);
+            if (transaction == null)
+                return NotFound("Transacción no encontrada.");
+
+            var transactionDto = _mapper.Map<TransactionDto>(transaction);
+            var response = new ApiResponse<TransactionDto>(transactionDto);
+            return Ok(response);
+        }
+
+        [HttpPost("dto/mapper/")]
+        public async Task<IActionResult> RegisterTransactionDtoMapper(TransactionDto transactionDto)
+        {
+            var validationResult = await _crearValidator.ValidateAsync(transactionDto);
+            if (!validationResult.IsValid)
             {
-                Id = t.Id,
-                UserId = t.UserId,
-                CategoryId = t.CategoryId,
-                Amount = t.Amount,
-                Type = t.Type,
-                Date = t.Date.ToString("dd-MM-yyyy")
-            });
-            return Ok(transactionsDto);
-        }
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
+                });
+            }
 
-        [HttpPost("dto")]
-        public async Task<IActionResult> RegisterTransactionDto(TransactionDto transactionDto)
-        {
-            var transaction = new Transaction
+            try
             {
-                UserId = transactionDto.UserId,
-                CategoryId = transactionDto.CategoryId,
-                Amount = transactionDto.Amount,
-                Type = transactionDto.Type,
-                Date = DateTime.Now,
-                Description = "Registro desde API"
-            };
-
-            await _transactionRepository.InsertTransactionAsync(transaction);
-            transactionDto.Id = transaction.Id;
-            return Ok(transactionDto);
+                var transaction = _mapper.Map<Transaction>(transactionDto);
+                await _transactionService.InsertTransaction(transaction);
+                var response = new ApiResponse<Transaction>(transaction);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al registrar", error = ex.Message });
+            }
         }
 
-        [HttpPut("dto/{id}")]
-        public async Task<IActionResult> UpdateTransactionDto(int id, [FromBody] TransactionDto dto)
+        [HttpPut("dto/mapper/{id}")]
+        public async Task<IActionResult> UpdateTransactionDtoMapper(int id, [FromBody] TransactionDto transactionDto)
         {
-            if (id != dto.Id) return BadRequest("ID no coincide");
+            if (id != transactionDto.Id)
+                return BadRequest("El ID no coincide.");
 
-            var transaction = await _transactionRepository.GetTransactionByIdAsync(id);
-            if (transaction == null) return NotFound();
+            var validationResult = await _actualizarValidator.ValidateAsync(transactionDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
+                });
+            }
+            var transaction = await _transactionService.GetTransactionByIdAsync(id);
+            if (transaction == null)
+                return NotFound("Transacción no encontrada.");
 
-            transaction.Amount = dto.Amount;
-            transaction.CategoryId = dto.CategoryId;
-            transaction.Type = dto.Type;
-
-            await _transactionRepository.UpdateTransactionAsync(transaction);
-            return NoContent();
+            try
+            {
+                _mapper.Map(transactionDto, transaction);
+                await _transactionService.UpdateTransaction(transaction);
+                var response = new ApiResponse<Transaction>(transaction);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al actualizar", error = ex.Message });
+            }
         }
 
-        [HttpDelete("dto/{id}")]
-        public async Task<IActionResult> DeleteTransactionDto(int id)
+        [HttpDelete("dto/mapper/{id}")]
+        public async Task<IActionResult> DeleteTransactionDtoMapper(int id)
         {
-            await _transactionRepository.DeleteTransactionAsync(id);
-            return NoContent();
+            var transaction = await _transactionService.GetTransactionByIdAsync(id);
+            if (transaction == null)
+                return NotFound("Transacción no encontrada.");
+
+            try
+            {
+                await _transactionService.DeleteTransaction(id);
+                var response = new ApiResponse<bool>(true);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al eliminar", error = ex.Message });
+            }
         }
+        #endregion
     }
 }

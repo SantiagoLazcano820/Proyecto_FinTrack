@@ -2,6 +2,9 @@
 using FinTrack.Core.Interfaces;
 using FinTrack.Infraestructure.Data;
 using FinTrack.Infraestructure.Repositories;
+using FinTrack.Services.Interfaces;
+using FinTrack.Services.Services;
+using FinTrack.Services.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinTrack.Api
@@ -30,6 +33,13 @@ namespace FinTrack.Api
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 }
                 );
+
+            //builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            builder.Services.AddTransient<CrearCategoryDtoValidator>();
+            builder.Services.AddTransient<ActualizarCategoryDtoValidator>();
+            builder.Services.AddTransient<CrearTransactionDtoValidator>();
+            builder.Services.AddTransient<ActualizarTransactionDtoValidator>();
+            builder.Services.AddTransient<ITransactionService, TransactionService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
