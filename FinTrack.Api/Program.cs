@@ -41,6 +41,9 @@ namespace FinTrack.Api
             builder.Services.AddTransient<ActualizarTransactionDtoValidator>();
             builder.Services.AddTransient<ITransactionService, TransactionService>();
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
