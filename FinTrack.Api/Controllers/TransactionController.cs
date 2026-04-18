@@ -36,7 +36,7 @@ namespace FinTrack.Api.Controllers
         [HttpGet("dto/mapper/")]
         public async Task<IActionResult> GetTransactionsDtoMapper()
         {
-            var transactions = await _transactionService.GetTransactionsAsync();
+            var transactions = await _transactionService.GetAllTransactionsAsync();
             var transactionsDto = _mapper.Map<IEnumerable<TransactionDto>>(transactions);
             var response = new ApiResponse<IEnumerable<TransactionDto>>(transactionsDto);
             return Ok(response);
@@ -55,7 +55,7 @@ namespace FinTrack.Api.Controllers
         }
 
         [HttpPost("dto/mapper/")]
-        public async Task<IActionResult> RegisterTransactionDtoMapper(TransactionDto transactionDto)
+        public async Task<IActionResult> InsertTransactionDtoMapper(TransactionDto transactionDto)
         {
             var validationResult = await _crearValidator.ValidateAsync(transactionDto);
             if (!validationResult.IsValid)

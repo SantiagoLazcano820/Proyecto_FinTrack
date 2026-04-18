@@ -7,8 +7,7 @@ namespace FinTrack.Services.Validators
     {
         public ActualizarTransactionDtoValidator()
         {
-            RuleFor(x => x.Id)
-                .GreaterThan(0).WithMessage("El ID de la transacción es obligatorio para actualizar.");
+            RuleFor(x => x.Id).GreaterThan(0).WithMessage("El ID de la transacción es obligatorio para actualizar.");
 
             RuleFor(x => x.UserId).GreaterThan(0).WithMessage("ID de usuario obligatorio.");
             RuleFor(x => x.Amount).GreaterThan(0).WithMessage("El monto debe ser mayor a cero.");

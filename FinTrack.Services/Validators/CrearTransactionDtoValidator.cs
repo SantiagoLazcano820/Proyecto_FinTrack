@@ -7,8 +7,7 @@ namespace FinTrack.Services.Validators
     {
         public CrearTransactionDtoValidator()
         {
-            RuleFor(x => x.Id)
-                .Equal(0).WithMessage("El ID no debe enviarse para crear una nueva transacción.");
+            RuleFor(x => x.Id).Equal(0).WithMessage("El ID no debe enviarse para crear una nueva transacción.");
 
             RuleFor(x => x.UserId).GreaterThan(0).WithMessage("ID de usuario inválido.");
             RuleFor(x => x.CategoryId).GreaterThan(0).WithMessage("Debes seleccionar una categoría válida.");

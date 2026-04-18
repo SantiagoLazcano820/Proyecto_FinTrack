@@ -1,8 +1,8 @@
 ﻿namespace FinTrack.Core.Entities;
 
-public partial class User
+public partial class User : BaseEntity
 {
-    public int Id { get; set; }
+    //public int Id { get; set; }
 
     public int RoleId { get; set; }
 

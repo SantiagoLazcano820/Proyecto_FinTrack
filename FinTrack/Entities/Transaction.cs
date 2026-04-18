@@ -1,8 +1,8 @@
 ﻿namespace FinTrack.Core.Entities;
 
-public partial class Transaction
+public partial class Transaction : BaseEntity
 {
-    public int Id { get; set; }
+    //public int Id { get; set; }
 
     public int UserId { get; set; }
 

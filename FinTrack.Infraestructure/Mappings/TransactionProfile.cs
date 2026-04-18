@@ -5,21 +5,12 @@ using System.Globalization;
 
 namespace FinTrack.Infrastructure.Mappings
 {
-    public class MappingProfile : Profile
+    public class TransactionProfile : Profile
     {
-        public MappingProfile()
+        public TransactionProfile()
         {
-            CreateMap<Category, CategoryDto>().ReverseMap();
-            CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<Role, RoleDto>().ReverseMap();
-
-            CreateMap<Transaction, TransactionDto>()
-                .ForMember(dest => dest.Date,
-                    opt => opt.ConvertUsing<DateTimeToStringConverter, DateTime>());
-
-            CreateMap<TransactionDto, Transaction>()
-                .ForMember(dest => dest.Date,
-                    opt => opt.ConvertUsing<StringToDateTimeConverter, string>());
+            CreateMap<Transaction, TransactionDto>().ForMember(dest => dest.Date, opt => opt.ConvertUsing<DateTimeToStringConverter, DateTime>());
+            CreateMap<TransactionDto, Transaction>().ForMember(dest => dest.Date, opt => opt.ConvertUsing<StringToDateTimeConverter, string>());
         }
     }
 

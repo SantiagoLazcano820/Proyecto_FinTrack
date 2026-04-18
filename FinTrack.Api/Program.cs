@@ -35,14 +35,26 @@ namespace FinTrack.Api
                 );
 
             //builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            // --- VALIDATORS (Transient está bien para estos) ---
             builder.Services.AddTransient<CrearCategoryDtoValidator>();
             builder.Services.AddTransient<ActualizarCategoryDtoValidator>();
             builder.Services.AddTransient<CrearTransactionDtoValidator>();
             builder.Services.AddTransient<ActualizarTransactionDtoValidator>();
-            builder.Services.AddTransient<ITransactionService, TransactionService>();
+            builder.Services.AddTransient<CrearUserDtoValidator>();
+            builder.Services.AddTransient<ActualizarUserDtoValidator>();
+            builder.Services.AddTransient<LoginUserDtoValidator>();
 
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            // --- REPOSITORIES ---
+            builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+            // --- SERVICES ---
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ITransactionService, TransactionService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            // --- AUTOMAPPER ---
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();

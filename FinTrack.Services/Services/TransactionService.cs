@@ -6,28 +6,28 @@ namespace FinTrack.Services.Services
 {
     public class TransactionService : ITransactionService
     {
-        public readonly ITransactionRepository _transactionRepository;
-        public readonly IUserRepository _userRepository;
+        public readonly IBaseRepository<Transaction> _transactionRepository;
+        public readonly IBaseRepository<User> _userRepository;
 
-        public TransactionService(ITransactionRepository transactionRepository, IUserRepository userRepository)
+        public TransactionService(IBaseRepository<Transaction> transactionRepository, IBaseRepository<User> userRepository)
         {
             _transactionRepository = transactionRepository;
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactionsAsync()
+        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
         {
-            return await _transactionRepository.GetTransactionsAsync();
+            return await _transactionRepository.GetAll();
         }
 
         public async Task<Transaction> GetTransactionByIdAsync(int id)
         {
-            return await _transactionRepository.GetTransactionByIdAsync(id);
+            return await _transactionRepository.GetById(id);
         }
 
         public async Task InsertTransaction(Transaction transaction)
         {
-            var user = await _userRepository.GetUserByIdAsync(transaction.UserId);
+            var user = await _userRepository.GetById(transaction.UserId);
             if (user == null)
             {
                 throw new Exception("El usuario no existe");
@@ -43,19 +43,19 @@ namespace FinTrack.Services.Services
                 throw new Exception("No se permite registrar transacciones con más de 30 días a futuro");
             }
 
-            await _transactionRepository.InsertTransactionAsync(transaction);
+            await _transactionRepository.Insert(transaction);
         }
 
         public async Task UpdateTransaction(Transaction transaction)
         {
-            var existing = await _transactionRepository.GetTransactionByIdAsync(transaction.Id);
+            var existing = await _transactionRepository.GetById(transaction.Id);
             if (existing == null) throw new Exception("La transacción no existe para ser editada.");
-            await _transactionRepository.UpdateTransactionAsync(transaction);
+            _transactionRepository.Update(transaction);
         }
 
         public async Task<bool> DeleteTransaction(int id)
         {
-            await _transactionRepository.DeleteTransactionAsync(id);
+            await _transactionRepository.Delete(id);
             return true;
         }
 

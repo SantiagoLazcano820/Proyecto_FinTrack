@@ -2,7 +2,6 @@
 using FinTrack.API.Responses;
 using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
-using FinTrack.Core.Interfaces;
 using FinTrack.Services.Interfaces;
 using FinTrack.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +36,7 @@ namespace FinTrack.Api.Controllers
         [HttpGet("dto/mapper/")]
         public async Task<IActionResult> GetCategoriesDtoMapper()
         {
-            var categories = await _categoryService.GetCategoriesAsync();
+            var categories = await _categoryService.GetAllCategoriesAsync();
             var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
             var response = new ApiResponse<IEnumerable<CategoryDto>>(categoriesDto);

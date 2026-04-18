@@ -1,6 +1,10 @@
-﻿using FinTrack.Core.DTOs;
+﻿using AutoMapper;
+using FinTrack.API.Responses;
+using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
-using FinTrack.Core.Interfaces;
+using FinTrack.Services.Interfaces;
+using FinTrack.Services.Services;
+using FinTrack.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinTrack.Api.Controllers
@@ -9,104 +13,147 @@ namespace FinTrack.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+        private readonly CrearUserDtoValidator _crearValidator;
+        private readonly LoginUserDtoValidator _loginValidator;
+        private readonly ActualizarUserDtoValidator _actualizarValidator;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(
+            IUserService userService,
+            IMapper mapper,
+            CrearUserDtoValidator crearValidator,
+            LoginUserDtoValidator loginValidator,
+            ActualizarUserDtoValidator actualizarValidator)
         {
-            _userRepository = userRepository;
+            _userService = userService;
+            _mapper = mapper;
+            _crearValidator = crearValidator;
+            _loginValidator = loginValidator;
+            _actualizarValidator = actualizarValidator;
         }
 
-        // GET: api/User/dto
-        [HttpGet("dto")]
-        public async Task<IActionResult> GetUsersDto()
+        #region Con Dto Mapper
+        [HttpGet("dto/mapper/")]
+        public async Task<IActionResult> GetUsersDtoMapper()
         {
-            var users = await _userRepository.GetAllUsersAsync();
-
-            var usersDto = users.Select(u => new UserDto
-            {
-                Id = u.Id,
-                RoleId = u.RoleId,
-                Name = u.Name,
-                LastName = u.LastName,
-                Email = u.Email
-            });
-
-            return Ok(usersDto);
+            var users = await _userService.GetAllUsersAsync();
+            var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
+            var response = new ApiResponse<IEnumerable<UserDto>>(usersDto);
+            return Ok(response);
         }
 
-        // GET: api/User/dto/5
-        [HttpGet("dto/{id}")]
-        public async Task<IActionResult> GetUserByIdDto(int id)
+        [HttpGet("dto/mapper/{id}")]
+        public async Task<IActionResult> GetUserByIdDtoMapper(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
-            {
                 return NotFound("Usuario no encontrado.");
+
+            var userDto = _mapper.Map<UserDto>(user);
+            var response = new ApiResponse<UserDto>(userDto);
+            return Ok(response);
+        }
+
+        [HttpPost("dto/mapper/")]
+        public async Task<IActionResult> InsertUserDtoMapper(UserDto userDto)
+        {
+            var validationResult = await _crearValidator.ValidateAsync(userDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
+                });
             }
 
-            var userDto = new UserDto
+            try
             {
-                Id = user.Id,
-                RoleId = user.RoleId,
-                Name = user.Name,
-                LastName = user.LastName,
-                Email = user.Email
-            };
-
-            return Ok(userDto);
-        }
-
-        [HttpPost("dto")]
-        public async Task<IActionResult> InsertUserDto(UserDto userDto)
-        {
-            var user = new User
-            {
-                RoleId = userDto.RoleId,
-                Name = userDto.Name,
-                LastName = userDto.LastName,
-                Email = userDto.Email,
-                Password = "ChangeMe123!",
-                IsActive = 1
-            };
-
-            await _userRepository.InsertUser(user);
-
-            userDto.Id = user.Id;
-            return CreatedAtAction(nameof(GetUserByIdDto), new { id = userDto.Id }, userDto);
-        }
-
-        // PUT: api/User/dto/5
-        [HttpPut("dto/{id}")]
-        public async Task<IActionResult> UpdateUserDto(int id, [FromBody] UserDto userDto)
-        {
-            if (id != userDto.Id)
-                return BadRequest("El ID no coincide.");
-
-            var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null)
-                return NotFound("Usuario no existente.");
-
-            user.RoleId = userDto.RoleId;
-            user.Name = userDto.Name;
-            user.LastName = userDto.LastName;
-            user.Email = userDto.Email;
-
-            await _userRepository.UpdateUser(user);
-            return NoContent();
-        }
-
-        // DELETE: api/User/dto/5
-        [HttpDelete("dto/{id}")]
-        public async Task<IActionResult> DeleteUserDto(int id)
-        {
-            var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
+                var user = _mapper.Map<User>(userDto);
+                await _userService.InsertUser(user);
+                var response = new ApiResponse<User>(user);
+                return Ok(response);
             }
-
-            await _userRepository.DeleteUser(user);
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
+
+        [HttpPut("dto/mapper/{id}")]
+        public async Task<IActionResult> UpdateUserDtoMapper(int id, [FromBody] UserDto userDto)
+        {
+            if (id != userDto.Id) 
+                return BadRequest("El ID no coincide");
+
+            var validationResult = await _actualizarValidator.ValidateAsync(userDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new
+                {
+                    message = "Error de validación",
+                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
+                });
+            }
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+                return NotFound("User no encontrado.");
+            try
+            {
+                _mapper.Map(userDto, user);
+                await _userService.UpdateUser(user);
+                var response = new ApiResponse<User>(user);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("dto/mapper/{id}")]
+        public async Task<IActionResult> DeleteUserDtoMapper(int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+                return NotFound("User no encontrado.");
+
+            try
+            {
+                await _userService.DeleteUser(id);
+                var response = new ApiResponse<bool>(true);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al eliminar", error = ex.Message });
+            }
+        }
+
+        [HttpPost("dto/mapper/login/")]
+        public async Task<IActionResult> Login([FromBody] UserDto loginDto)
+        {
+            var validationResult = await _loginValidator.ValidateAsync(loginDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new { message = "Email y contraseña requeridos" });
+            }
+            try
+            {
+                var user = await _userService.Authenticate(loginDto.Email, loginDto.Password!);
+                if (user == null)
+                    return Unauthorized(new { message = "Credenciales incorrectas" });
+
+                var userDto = _mapper.Map<UserDto>(user);
+                var response = new ApiResponse<UserDto>(userDto);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error interno", error = ex.Message });
+            }
+        }
+        #endregion
     }
 }
