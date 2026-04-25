@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F2729EB9-267A-4382-859D-68E17DF28A12}|FinTrack.Services\\FinTrack.Services.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.services\\interfaces\\itransactionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2729EB9-267A-4382-859D-68E17DF28A12}|FinTrack.Services\\FinTrack.Services.csproj|solutionrelative:fintrack.services\\interfaces\\itransactionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AE23106E-DEBC-4FFE-6246-1F61F0ED8A48}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.infraestructure\\data\\configurations\\categoryconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE23106E-DEBC-4FFE-6246-1F61F0ED8A48}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|solutionrelative:fintrack.infraestructure\\data\\configurations\\categoryconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F2729EB9-267A-4382-859D-68E17DF28A12}|FinTrack.Services\\FinTrack.Services.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.services\\services\\transactionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2729EB9-267A-4382-859D-68E17DF28A12}|FinTrack.Services\\FinTrack.Services.csproj|solutionrelative:fintrack.services\\services\\transactionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|solutionrelative:fintrack\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA680D38-899C-A653-B2DD-1C96B350FF6B}|FinTrack\\FinTrack.Core.csproj|solutionrelative:fintrack\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|solutionrelative:fintrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 226,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ITransactionService.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\Interfaces\\ITransactionService.cs",
-              "RelativeDocumentMoniker": "FinTrack.Services\\Interfaces\\ITransactionService.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\Interfaces\\ITransactionService.cs",
-              "RelativeToolTip": "FinTrack.Services\\Interfaces\\ITransactionService.cs",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "FinTrack\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\User.cs",
+              "RelativeToolTip": "FinTrack\\Entities\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-18T22:49:10.598Z",
+              "WhenOpened": "2026-04-25T22:13:50.076Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TransactionService.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\Services\\TransactionService.cs",
-              "RelativeDocumentMoniker": "FinTrack.Services\\Services\\TransactionService.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\Services\\TransactionService.cs",
-              "RelativeToolTip": "FinTrack.Services\\Services\\TransactionService.cs",
+              "DocumentIndex": 0,
+              "Title": "CategoryConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\Configurations\\CategoryConfiguration.cs",
+              "RelativeDocumentMoniker": "FinTrack.Infraestructure\\Data\\Configurations\\CategoryConfiguration.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Data\\Configurations\\CategoryConfiguration.cs",
+              "RelativeToolTip": "FinTrack.Infraestructure\\Data\\Configurations\\CategoryConfiguration.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-25T22:10:59.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "FinTrack\\Entities\\Category.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\Entities\\Category.cs",
+              "RelativeToolTip": "FinTrack\\Entities\\Category.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-18T22:48:32.881Z",
+              "WhenOpened": "2026-04-25T22:08:32.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Program.cs",
+              "RelativeDocumentMoniker": "FinTrack.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Program.cs",
+              "RelativeToolTip": "FinTrack.Api\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-25T21:38:53.656Z",
               "EditorCaption": ""
             }
           ]

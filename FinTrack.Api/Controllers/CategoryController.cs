@@ -2,9 +2,13 @@
 using FinTrack.API.Responses;
 using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
+using FinTrack.Core.Exceptions;
+using FinTrack.Core.QueryFilters;
 using FinTrack.Services.Interfaces;
 using FinTrack.Services.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FinTrack.Api.Controllers
 {
@@ -34,9 +38,9 @@ namespace FinTrack.Api.Controllers
 
         #region Con Dto Mapper
         [HttpGet("dto/mapper/")]
-        public async Task<IActionResult> GetCategoriesDtoMapper()
+        public async Task<IActionResult> GetCategoriesDtoMapper([FromQuery] CategoryQueryFilter filters)
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
+            var categories = await _categoryService.GetAllCategoriesAsync(filters);
             var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
             var response = new ApiResponse<IEnumerable<CategoryDto>>(categoriesDto);
@@ -48,7 +52,7 @@ namespace FinTrack.Api.Controllers
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
-                return NotFound("Categoría no encontrada.");
+                throw new BusinessException("Categoría no encontrada.", HttpStatusCode.NotFound);
 
             var categoryDto = _mapper.Map<CategoryDto>(category);
             var response = new ApiResponse<CategoryDto>(categoryDto);
@@ -61,11 +65,7 @@ namespace FinTrack.Api.Controllers
             var validationResult = await _crearValidator.ValidateAsync(categoryDto);
             if (!validationResult.IsValid)
             {
-                return BadRequest(new
-                {
-                    message = "Error de validación",
-                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
-                });
+                throw new ValidationException(validationResult.Errors);
             }
 
             try
@@ -75,9 +75,13 @@ namespace FinTrack.Api.Controllers
                 var response = new ApiResponse<Category>(category);
                 return Ok(response);
             }
+            catch (BusinessException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error al crear la categoría", error = ex.Message });
+                throw new Exception("Error crítico al crear la categoría.", ex);
             }
         }
 
@@ -85,50 +89,54 @@ namespace FinTrack.Api.Controllers
         public async Task<IActionResult> UpdateCategoryDtoMapper(int id, [FromBody] CategoryDto categoryDto)
         {
             if (id != categoryDto.Id)
-                return BadRequest("El ID de la categoría no coincide.");
+                throw new BusinessException("El ID de la categoría no coincide.", HttpStatusCode.BadRequest);
 
             var validationResult = await _actualizarValidator.ValidateAsync(categoryDto);
             if (!validationResult.IsValid)
             {
-                return BadRequest(new
-                {
-                    message = "Error de validación",
-                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
-                });
+                throw new ValidationException(validationResult.Errors);
             }
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
-                return NotFound("Categoría no encontrada.");
+                throw new BusinessException("Categoría no encontrada.", HttpStatusCode.NotFound);
 
             try
             {
                 _mapper.Map(categoryDto, category);
-                await _categoryService.UpdateCategory(category);
+                _categoryService.UpdateCategory(category);
                 var response = new ApiResponse<Category>(category);
                 return Ok(response);
             }
+            catch (BusinessException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error al actualizar la categoría", error = ex.Message });
+                throw new Exception("Error inesperado al actualizar la categoría.", ex);
             }
         }
 
         [HttpDelete("dto/mapper/{id}")]
-        public async Task<IActionResult> DeleteCategoryDtoMapper(int id)
+        public async Task<IActionResult> DeleteCategoryDtoMapper(int id, int userId)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
-                return NotFound("Categoría no encontrada.");
+                throw new BusinessException("Categoría no encontrada.", HttpStatusCode.NotFound);
 
             try
             {
-                await _categoryService.DeleteCategory(id);
+                await _categoryService.DeleteCategory(id, userId);
                 var response = new ApiResponse<bool>(true);
                 return Ok(response);
             }
+            catch (BusinessException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error al eliminar la categoría", error = ex.Message });
+                throw new Exception("Error crítico al intentar eliminar la categoría.", ex);
             }
         }
         #endregion

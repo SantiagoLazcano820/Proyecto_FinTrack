@@ -13,11 +13,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Volo.Abp.Core" Version="10.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FinTrack.Infraestructure\FinTrack.Infraestructure.csproj" />
     <ProjectReference Include="..\FinTrack.Services\FinTrack.Services.csproj" />
+    <ProjectReference Include="..\FinTrack\FinTrack.Core.csproj" />
   </ItemGroup>
 
 </Project>

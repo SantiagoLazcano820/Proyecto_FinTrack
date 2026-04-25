@@ -28,20 +28,17 @@ namespace FinTrack.Infraestructure.Repositories
         public async Task Insert(T entity)
         {
             await _entities.AddAsync(entity);
-            //await _context.SaveChangesAsync();
         }
 
         public void Update(T entity)
         {
             _entities.Update(entity);
-            //await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
             T entity = await GetById(id);
             _entities.Remove(entity);
-            //await _context.SaveChangesAsync();
         }
     }
 }

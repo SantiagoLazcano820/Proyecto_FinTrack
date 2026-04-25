@@ -38,6 +38,9 @@
               },
               "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\FinTrack.Services.csproj": {
                 "projectPath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\FinTrack.Services.csproj"
+              },
+              "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\FinTrack.Core.csproj": {
+                "projectPath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\FinTrack.Core.csproj"
               }
             }
           }
@@ -52,7 +55,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
@@ -72,6 +75,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.13, )"
+            },
+            "Volo.Abp.Core": {
+              "target": "Package",
+              "version": "[10.3.0, )"
             }
           },
           "imports": [
@@ -93,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -556,7 +563,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
@@ -566,6 +573,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.72, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -598,7 +609,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -924,7 +935,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
@@ -960,7 +971,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1279,7 +1290,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
@@ -1301,7 +1312,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

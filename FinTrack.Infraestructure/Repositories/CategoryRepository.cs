@@ -5,18 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinTrack.Infraestructure.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
-        private readonly FinTrackContext _context;
-        public CategoryRepository(FinTrackContext context)
-        {
-            _context = context;
-        }
+        public CategoryRepository(FinTrackContext context) : base(context) { }
 
-        public async Task<Category> GetCategoryByIdAsync(int id)
+        public async Task<IEnumerable<Category>> GetCategoriesByUserIdAsync(int userId)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-            return category;
+            return await _entities.Where(x => x.UserId == userId && x.IsActive == 1).ToListAsync();
         }
     }
 }

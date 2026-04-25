@@ -10,7 +10,10 @@ namespace FinTrack.Infrastructure.Mappings
         public TransactionProfile()
         {
             CreateMap<Transaction, TransactionDto>().ForMember(dest => dest.Date, opt => opt.ConvertUsing<DateTimeToStringConverter, DateTime>());
-            CreateMap<TransactionDto, Transaction>().ForMember(dest => dest.Date, opt => opt.ConvertUsing<StringToDateTimeConverter, string>());
+            CreateMap<TransactionDto, Transaction>()
+                .ForMember(dest => dest.Date, opt => opt.ConvertUsing<StringToDateTimeConverter, string>())
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId));
         }
     }
 

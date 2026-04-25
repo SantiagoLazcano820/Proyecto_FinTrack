@@ -2,8 +2,8 @@
 
 namespace FinTrack.Core.Interfaces
 {
-    public interface ICategoryRepository 
+    public interface ICategoryRepository : IBaseRepository<Category>
     {
-        Task<Category> GetCategoryByIdAsync(int id);
+        Task<IEnumerable<Category>> GetCategoriesByUserIdAsync(int userId);
     }
 }

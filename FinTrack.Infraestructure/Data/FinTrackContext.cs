@@ -1,8 +1,5 @@
 ﻿using FinTrack.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace FinTrack.Infraestructure.Data;

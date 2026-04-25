@@ -26,15 +26,11 @@ namespace FinTrack.Infraestructure.Data.Configurations
             entity.Property(e => e.Type).HasMaxLength(10);
             entity.Property(e => e.UserId).HasColumnType("int(11)");
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Transactions)
+            entity.HasOne(d => d.Category)
+                .WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_Transaction_Category");
-
-            //entity.HasOne(d => d.User).WithMany(p => p.Transactions)
-            //    .HasForeignKey(d => d.UserId)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("FK_Transaction_User");
         }
     }
 }

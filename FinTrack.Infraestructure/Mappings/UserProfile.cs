@@ -9,9 +9,9 @@ namespace FinTrack.Infrastructure.Mappings
         public UserProfile()
         {
             CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>().ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => 1))
-                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => src.RoleId == 0 ? 2 : src.RoleId));
+            CreateMap<UserDto, User>()
+            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => 1))
+            .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => src.RoleId == 0 ? 2 : src.RoleId));
         }
     }
 }

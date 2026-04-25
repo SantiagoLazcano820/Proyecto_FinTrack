@@ -19,7 +19,13 @@ namespace FinTrack.Services.Validators
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("La contraseña no puede estar vacía.")
-                .MinimumLength(8).WithMessage("Por seguridad, la contraseña requiere 8 o más caracteres.");
+                .MinimumLength(8).WithMessage("La contraseña requiere 8 o más caracteres.")
+                .Matches(@"[A-Z]").WithMessage("La contraseña debe tener al menos una mayúscula.")
+                .Matches(@"[0-9]").WithMessage("La contraseña debe tener al menos un número.")
+                .Matches(@"[\W]").WithMessage("La contraseña debe tener al menos un carácter especial.");
+
+            RuleFor(x => x.Name).NotEmpty().WithMessage("El nombre es obligatorio.");
+            RuleFor(x => x.LastName).NotEmpty().WithMessage("El apellido es obligatorio.");
         }
     }
 }

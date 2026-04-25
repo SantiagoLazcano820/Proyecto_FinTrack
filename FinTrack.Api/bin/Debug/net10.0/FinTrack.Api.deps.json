@@ -8,11 +8,13 @@
     ".NETCoreApp,Version=v10.0": {
       "FinTrack.Api/1.0.0": {
         "dependencies": {
+          "FinTrack.Core": "1.0.0",
           "FinTrack.Infraestructure": "1.0.0",
           "FinTrack.Services": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "9.0.13",
           "Microsoft.AspNetCore.OpenApi": "10.0.2",
-          "Microsoft.EntityFrameworkCore.Design": "9.0.13"
+          "Microsoft.EntityFrameworkCore.Design": "9.0.13",
+          "Volo.Abp.Core": "10.3.0"
         },
         "runtime": {
           "FinTrack.Api.dll": {}
@@ -23,6 +25,22 @@
           "lib/net6.0/AutoMapper.dll": {
             "assemblyVersion": "13.0.0.0",
             "fileVersion": "13.0.1.0"
+          }
+        }
+      },
+      "BCrypt.Net-Next/4.0.3": {
+        "runtime": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.0.3.0"
+          }
+        }
+      },
+      "Dapper/2.1.72": {
+        "runtime": {
+          "lib/net10.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.72.10375"
           }
         }
       },
@@ -62,6 +80,14 @@
           "lib/net6.0/Humanizer.dll": {
             "assemblyVersion": "2.14.0.0",
             "fileVersion": "2.14.1.48190"
+          }
+        }
+      },
+      "JetBrains.Annotations/2025.2.2": {
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "assemblyVersion": "4242.42.42.42",
+            "fileVersion": "2025.2.2.0"
           }
         }
       },
@@ -450,7 +476,7 @@
       },
       "Mono.TextTemplating/3.0.0": {
         "dependencies": {
-          "System.CodeDom": "6.0.0"
+          "System.CodeDom": "10.0.2"
         },
         "runtime": {
           "lib/net6.0/Mono.TextTemplating.dll": {
@@ -486,6 +512,36 @@
           }
         }
       },
+      "Nito.AsyncEx.Context/5.1.2": {
+        "dependencies": {
+          "Nito.AsyncEx.Tasks": "5.1.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Nito.AsyncEx.Context.dll": {
+            "assemblyVersion": "5.1.2.0",
+            "fileVersion": "5.1.2.0"
+          }
+        }
+      },
+      "Nito.AsyncEx.Tasks/5.1.2": {
+        "dependencies": {
+          "Nito.Disposables": "2.2.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Nito.AsyncEx.Tasks.dll": {
+            "assemblyVersion": "5.1.2.0",
+            "fileVersion": "5.1.2.0"
+          }
+        }
+      },
+      "Nito.Disposables/2.2.1": {
+        "runtime": {
+          "lib/netstandard2.1/Nito.Disposables.dll": {
+            "assemblyVersion": "2.2.1.0",
+            "fileVersion": "2.2.1.0"
+          }
+        }
+      },
       "Pomelo.EntityFrameworkCore.MySql/9.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Relational": "9.0.13",
@@ -498,11 +554,11 @@
           }
         }
       },
-      "System.CodeDom/6.0.0": {
+      "System.CodeDom/10.0.2": {
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
+          "lib/net10.0/System.CodeDom.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.225.61305"
           }
         }
       },
@@ -566,6 +622,47 @@
           }
         }
       },
+      "System.Linq.Dynamic.Core/1.6.7": {
+        "runtime": {
+          "lib/net9.0/System.Linq.Dynamic.Core.dll": {
+            "assemblyVersion": "1.6.7.0",
+            "fileVersion": "1.6.7.0"
+          }
+        }
+      },
+      "System.Management/10.0.2": {
+        "dependencies": {
+          "System.CodeDom": "10.0.2"
+        },
+        "runtime": {
+          "lib/net10.0/System.Management.dll": {
+            "assemblyVersion": "10.0.0.2",
+            "fileVersion": "10.0.225.61305"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net10.0/System.Management.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "10.0.0.2",
+            "fileVersion": "10.0.225.61305"
+          }
+        }
+      },
+      "Volo.Abp.Core/10.3.0": {
+        "dependencies": {
+          "JetBrains.Annotations": "2025.2.2",
+          "Nito.AsyncEx.Context": "5.1.2",
+          "System.Linq.Dynamic.Core": "1.6.7",
+          "System.Management": "10.0.2"
+        },
+        "runtime": {
+          "lib/net10.0/Volo.Abp.Core.dll": {
+            "assemblyVersion": "10.3.0.0",
+            "fileVersion": "10.3.0.0"
+          }
+        }
+      },
       "FinTrack.Core/1.0.0": {
         "runtime": {
           "FinTrack.Core.dll": {
@@ -577,6 +674,7 @@
       "FinTrack.Infraestructure/1.0.0": {
         "dependencies": {
           "AutoMapper": "13.0.1",
+          "Dapper": "2.1.72",
           "FinTrack.Core": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "9.0.0"
         },
@@ -589,6 +687,7 @@
       },
       "FinTrack.Services/1.0.0": {
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
           "FinTrack.Core": "1.0.0",
           "FinTrack.Infraestructure": "1.0.0",
           "FluentValidation.AspNetCore": "11.3.1",
@@ -615,6 +714,20 @@
       "sha512": "sha512-/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
       "path": "automapper/13.0.1",
       "hashPath": "automapper.13.0.1.nupkg.sha512"
+    },
+    "BCrypt.Net-Next/4.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "path": "bcrypt.net-next/4.0.3",
+      "hashPath": "bcrypt.net-next.4.0.3.nupkg.sha512"
+    },
+    "Dapper/2.1.72": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
+      "path": "dapper/2.1.72",
+      "hashPath": "dapper.2.1.72.nupkg.sha512"
     },
     "FluentValidation/11.12.0": {
       "type": "package",
@@ -643,6 +756,13 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "JetBrains.Annotations/2025.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0X56ZRizuHdrnPpgXjWV7f2tQO1FlQg5O1967OGKnI/4ZRNOK642J8L7brM1nYvrxTTU5TP1yRyXLRLaXLPQ8A==",
+      "path": "jetbrains.annotations/2025.2.2",
+      "hashPath": "jetbrains.annotations.2025.2.2.nupkg.sha512"
     },
     "Microsoft.AspNetCore.JsonPatch/9.0.13": {
       "type": "package",
@@ -784,6 +904,27 @@
       "path": "newtonsoft.json.bson/1.0.2",
       "hashPath": "newtonsoft.json.bson.1.0.2.nupkg.sha512"
     },
+    "Nito.AsyncEx.Context/5.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rMwL7Nj3oNyvFu/jxUzQ/YBobEkM2RQHe+5mpCDRyq6mfD7vCj7Z3rjB6XgpM6Mqcx1CA2xGv0ascU/2Xk8IIg==",
+      "path": "nito.asyncex.context/5.1.2",
+      "hashPath": "nito.asyncex.context.5.1.2.nupkg.sha512"
+    },
+    "Nito.AsyncEx.Tasks/5.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jEkCfR2/M26OK/U4G7SEN063EU/F4LiVA06TtpZILMdX/quIHCg+wn31Zerl2LC+u1cyFancjTY3cNAr2/89PA==",
+      "path": "nito.asyncex.tasks/5.1.2",
+      "hashPath": "nito.asyncex.tasks.5.1.2.nupkg.sha512"
+    },
+    "Nito.Disposables/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6sZ5uynQeAE9dPWBQGKebNmxbY4xsvcc5VplB5WkYEESUS7oy4AwnFp0FhqxTSKm/PaFrFqLrYr696CYN8cugg==",
+      "path": "nito.disposables/2.2.1",
+      "hashPath": "nito.disposables.2.2.1.nupkg.sha512"
+    },
     "Pomelo.EntityFrameworkCore.MySql/9.0.0": {
       "type": "package",
       "serviceable": true,
@@ -791,12 +932,12 @@
       "path": "pomelo.entityframeworkcore.mysql/9.0.0",
       "hashPath": "pomelo.entityframeworkcore.mysql.9.0.0.nupkg.sha512"
     },
-    "System.CodeDom/6.0.0": {
+    "System.CodeDom/10.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CPc6tWO1LAer3IzfZufDBRL+UZQcj5uS207NHALQzP84Vp/z6wF0Aa0YZImOQY8iStY0A2zI/e3ihKNPfUm8XA==",
-      "path": "system.codedom/6.0.0",
-      "hashPath": "system.codedom.6.0.0.nupkg.sha512"
+      "sha512": "sha512-eih1MnL4tnSjHUhzae0dmpu50Sm0s54faHZc8yhzYfmubAubkBIIulYYN28fasD1m41mhl6Cenhs9/F0aLv3FA==",
+      "path": "system.codedom/10.0.2",
+      "hashPath": "system.codedom.10.0.2.nupkg.sha512"
     },
     "System.Composition/7.0.0": {
       "type": "package",
@@ -839,6 +980,27 @@
       "sha512": "sha512-ZK0KNPfbtxVceTwh+oHNGUOYV2WNOHReX2AXipuvkURC7s/jPwoWfsu3SnDBDgofqbiWr96geofdQ2erm/KTHg==",
       "path": "system.composition.typedparts/7.0.0",
       "hashPath": "system.composition.typedparts.7.0.0.nupkg.sha512"
+    },
+    "System.Linq.Dynamic.Core/1.6.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lH+YgtovXbxD6JImHl2VXUtXRUvN8BMEZB2ReZNvS+J5GnGGZV9ivxslQ2nJWmKlBjFTReAKsevnQKE4yLP2pA==",
+      "path": "system.linq.dynamic.core/1.6.7",
+      "hashPath": "system.linq.dynamic.core.1.6.7.nupkg.sha512"
+    },
+    "System.Management/10.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eFftuy3i844lVKCb4lJvvjKfcvPVcW8KrAdSaIOcRL42/Fisj46hwUs8Bky+4avzMe5Snm5t7aSayOI1mybYXg==",
+      "path": "system.management/10.0.2",
+      "hashPath": "system.management.10.0.2.nupkg.sha512"
+    },
+    "Volo.Abp.Core/10.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yTiHjKyGeAvGM4T8K8QD2Dpjn+IK8WgrL4vGjf9QG7zlvG2EkqAbN5Qe6As5LTVlM4W+EO0ElMK8sJesKyWHBQ==",
+      "path": "volo.abp.core/10.3.0",
+      "hashPath": "volo.abp.core.10.3.0.nupkg.sha512"
     },
     "FinTrack.Core/1.0.0": {
       "type": "project",

@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "AutoMapper/13.0.1": {
@@ -24,6 +24,19 @@
         },
         "runtime": {
           "lib/net6.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Dapper/2.1.72": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Dapper.dll": {
             "related": ".xml"
           }
         }
@@ -87,6 +100,19 @@
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
             "related": ".xml"
+          }
+        }
+      },
+      "JetBrains.Annotations/2025.2.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "related": ".deps.json;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "related": ".deps.json;.xml"
           }
         }
       },
@@ -655,6 +681,51 @@
           }
         }
       },
+      "Nito.AsyncEx.Context/5.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Nito.AsyncEx.Tasks": "5.1.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Nito.AsyncEx.Context.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Nito.AsyncEx.Context.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Nito.AsyncEx.Tasks/5.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Nito.Disposables": "2.2.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Nito.AsyncEx.Tasks.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Nito.AsyncEx.Tasks.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Nito.Disposables/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Nito.Disposables.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/Nito.Disposables.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Pomelo.EntityFrameworkCore.MySql/9.0.0": {
         "type": "package",
         "dependencies": {
@@ -672,20 +743,20 @@
           }
         }
       },
-      "System.CodeDom/6.0.0": {
+      "System.CodeDom/10.0.2": {
         "type": "package",
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net10.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {
+          "lib/net10.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
         "build": {
-          "buildTransitive/netcoreapp3.1/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Composition/7.0.0": {
@@ -798,6 +869,63 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Linq.Dynamic.Core/1.6.7": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/System.Linq.Dynamic.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.Linq.Dynamic.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "System.Management/10.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "10.0.2"
+        },
+        "compile": {
+          "lib/net10.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net10.0/System.Management.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "Volo.Abp.Core/10.3.0": {
+        "type": "package",
+        "dependencies": {
+          "JetBrains.Annotations": "2025.2.2",
+          "Nito.AsyncEx.Context": "5.1.2",
+          "System.Linq.Dynamic.Core": "1.6.7",
+          "System.Management": "10.0.2"
+        },
+        "compile": {
+          "lib/net10.0/Volo.Abp.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Volo.Abp.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "FinTrack.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -813,6 +941,7 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "AutoMapper": "13.0.1",
+          "Dapper": "2.1.72",
           "FinTrack.Core": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "9.0.0"
         },
@@ -886,6 +1015,27 @@
         "lib/netstandard2.0/BCrypt.Net-Next.xml",
         "lib/netstandard2.1/BCrypt.Net-Next.dll",
         "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
+      ]
+    },
+    "Dapper/2.1.72": {
+      "sha512": "ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
+      "type": "package",
+      "path": "dapper/2.1.72",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Dapper.png",
+        "dapper.2.1.72.nupkg.sha512",
+        "dapper.nuspec",
+        "lib/net10.0/Dapper.dll",
+        "lib/net10.0/Dapper.xml",
+        "lib/net461/Dapper.dll",
+        "lib/net461/Dapper.xml",
+        "lib/net8.0/Dapper.dll",
+        "lib/net8.0/Dapper.xml",
+        "lib/netstandard2.0/Dapper.dll",
+        "lib/netstandard2.0/Dapper.xml",
         "readme.md"
       ]
     },
@@ -966,6 +1116,29 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "JetBrains.Annotations/2025.2.2": {
+      "sha512": "0X56ZRizuHdrnPpgXjWV7f2tQO1FlQg5O1967OGKnI/4ZRNOK642J8L7brM1nYvrxTTU5TP1yRyXLRLaXLPQ8A==",
+      "type": "package",
+      "path": "jetbrains.annotations/2025.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "jetbrains.annotations.2025.2.2.nupkg.sha512",
+        "jetbrains.annotations.nuspec",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/netstandard1.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard1.0/JetBrains.Annotations.dll",
+        "lib/netstandard1.0/JetBrains.Annotations.xml",
+        "lib/netstandard2.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard2.0/JetBrains.Annotations.dll",
+        "lib/netstandard2.0/JetBrains.Annotations.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml",
+        "readme.md"
       ]
     },
     "Microsoft.AspNetCore.JsonPatch/9.0.13": {
@@ -2222,6 +2395,62 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
+    "Nito.AsyncEx.Context/5.1.2": {
+      "sha512": "rMwL7Nj3oNyvFu/jxUzQ/YBobEkM2RQHe+5mpCDRyq6mfD7vCj7Z3rjB6XgpM6Mqcx1CA2xGv0ascU/2Xk8IIg==",
+      "type": "package",
+      "path": "nito.asyncex.context/5.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net461/Nito.AsyncEx.Context.dll",
+        "lib/net461/Nito.AsyncEx.Context.xml",
+        "lib/netstandard1.3/Nito.AsyncEx.Context.dll",
+        "lib/netstandard1.3/Nito.AsyncEx.Context.xml",
+        "lib/netstandard2.0/Nito.AsyncEx.Context.dll",
+        "lib/netstandard2.0/Nito.AsyncEx.Context.xml",
+        "nito.asyncex.context.5.1.2.nupkg.sha512",
+        "nito.asyncex.context.nuspec"
+      ]
+    },
+    "Nito.AsyncEx.Tasks/5.1.2": {
+      "sha512": "jEkCfR2/M26OK/U4G7SEN063EU/F4LiVA06TtpZILMdX/quIHCg+wn31Zerl2LC+u1cyFancjTY3cNAr2/89PA==",
+      "type": "package",
+      "path": "nito.asyncex.tasks/5.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net461/Nito.AsyncEx.Tasks.dll",
+        "lib/net461/Nito.AsyncEx.Tasks.xml",
+        "lib/netstandard1.3/Nito.AsyncEx.Tasks.dll",
+        "lib/netstandard1.3/Nito.AsyncEx.Tasks.xml",
+        "lib/netstandard2.0/Nito.AsyncEx.Tasks.dll",
+        "lib/netstandard2.0/Nito.AsyncEx.Tasks.xml",
+        "nito.asyncex.tasks.5.1.2.nupkg.sha512",
+        "nito.asyncex.tasks.nuspec"
+      ]
+    },
+    "Nito.Disposables/2.2.1": {
+      "sha512": "6sZ5uynQeAE9dPWBQGKebNmxbY4xsvcc5VplB5WkYEESUS7oy4AwnFp0FhqxTSKm/PaFrFqLrYr696CYN8cugg==",
+      "type": "package",
+      "path": "nito.disposables/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net461/Nito.Disposables.dll",
+        "lib/net461/Nito.Disposables.xml",
+        "lib/netstandard1.0/Nito.Disposables.dll",
+        "lib/netstandard1.0/Nito.Disposables.xml",
+        "lib/netstandard2.0/Nito.Disposables.dll",
+        "lib/netstandard2.0/Nito.Disposables.xml",
+        "lib/netstandard2.1/Nito.Disposables.dll",
+        "lib/netstandard2.1/Nito.Disposables.xml",
+        "nito.disposables.2.2.1.nupkg.sha512",
+        "nito.disposables.nuspec"
+      ]
+    },
     "Pomelo.EntityFrameworkCore.MySql/9.0.0": {
       "sha512": "cl7S4s6CbJno0LjNxrBHNc2xxmCliR5i40ATPZk/eTywVaAbHCbdc9vbGc3QThvwGjHqrDHT8vY9m1VF/47o0g==",
       "type": "package",
@@ -2237,25 +2466,31 @@
         "pomelo.entityframeworkcore.mysql.nuspec"
       ]
     },
-    "System.CodeDom/6.0.0": {
-      "sha512": "CPc6tWO1LAer3IzfZufDBRL+UZQcj5uS207NHALQzP84Vp/z6wF0Aa0YZImOQY8iStY0A2zI/e3ihKNPfUm8XA==",
+    "System.CodeDom/10.0.2": {
+      "sha512": "eih1MnL4tnSjHUhzae0dmpu50Sm0s54faHZc8yhzYfmubAubkBIIulYYN28fasD1m41mhl6Cenhs9/F0aLv3FA==",
       "type": "package",
-      "path": "system.codedom/6.0.0",
+      "path": "system.codedom/10.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "LICENSE.TXT",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.CodeDom.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
-        "buildTransitive/netcoreapp3.1/_._",
-        "lib/net461/System.CodeDom.dll",
-        "lib/net461/System.CodeDom.xml",
-        "lib/net6.0/System.CodeDom.dll",
-        "lib/net6.0/System.CodeDom.xml",
+        "lib/net10.0/System.CodeDom.dll",
+        "lib/net10.0/System.CodeDom.xml",
+        "lib/net462/System.CodeDom.dll",
+        "lib/net462/System.CodeDom.xml",
+        "lib/net8.0/System.CodeDom.dll",
+        "lib/net8.0/System.CodeDom.xml",
+        "lib/net9.0/System.CodeDom.dll",
+        "lib/net9.0/System.CodeDom.xml",
         "lib/netstandard2.0/System.CodeDom.dll",
         "lib/netstandard2.0/System.CodeDom.xml",
-        "system.codedom.6.0.0.nupkg.sha512",
+        "system.codedom.10.0.2.nupkg.sha512",
         "system.codedom.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -2417,6 +2652,129 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "System.Linq.Dynamic.Core/1.6.7": {
+      "sha512": "lH+YgtovXbxD6JImHl2VXUtXRUvN8BMEZB2ReZNvS+J5GnGGZV9ivxslQ2nJWmKlBjFTReAKsevnQKE4yLP2pA==",
+      "type": "package",
+      "path": "system.linq.dynamic.core/1.6.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "PackageReadme.md",
+        "lib/net35/System.Linq.Dynamic.Core.dll",
+        "lib/net35/System.Linq.Dynamic.Core.pdb",
+        "lib/net35/System.Linq.Dynamic.Core.xml",
+        "lib/net40/System.Linq.Dynamic.Core.dll",
+        "lib/net40/System.Linq.Dynamic.Core.pdb",
+        "lib/net40/System.Linq.Dynamic.Core.xml",
+        "lib/net45/System.Linq.Dynamic.Core.dll",
+        "lib/net45/System.Linq.Dynamic.Core.pdb",
+        "lib/net45/System.Linq.Dynamic.Core.xml",
+        "lib/net452/System.Linq.Dynamic.Core.dll",
+        "lib/net452/System.Linq.Dynamic.Core.pdb",
+        "lib/net452/System.Linq.Dynamic.Core.xml",
+        "lib/net46/System.Linq.Dynamic.Core.dll",
+        "lib/net46/System.Linq.Dynamic.Core.pdb",
+        "lib/net46/System.Linq.Dynamic.Core.xml",
+        "lib/net5.0/System.Linq.Dynamic.Core.dll",
+        "lib/net5.0/System.Linq.Dynamic.Core.pdb",
+        "lib/net5.0/System.Linq.Dynamic.Core.xml",
+        "lib/net6.0/System.Linq.Dynamic.Core.dll",
+        "lib/net6.0/System.Linq.Dynamic.Core.pdb",
+        "lib/net6.0/System.Linq.Dynamic.Core.xml",
+        "lib/net7.0/System.Linq.Dynamic.Core.dll",
+        "lib/net7.0/System.Linq.Dynamic.Core.pdb",
+        "lib/net7.0/System.Linq.Dynamic.Core.xml",
+        "lib/net8.0/System.Linq.Dynamic.Core.dll",
+        "lib/net8.0/System.Linq.Dynamic.Core.pdb",
+        "lib/net8.0/System.Linq.Dynamic.Core.xml",
+        "lib/net9.0/System.Linq.Dynamic.Core.dll",
+        "lib/net9.0/System.Linq.Dynamic.Core.pdb",
+        "lib/net9.0/System.Linq.Dynamic.Core.xml",
+        "lib/netcoreapp2.1/System.Linq.Dynamic.Core.dll",
+        "lib/netcoreapp2.1/System.Linq.Dynamic.Core.pdb",
+        "lib/netcoreapp2.1/System.Linq.Dynamic.Core.xml",
+        "lib/netcoreapp3.1/System.Linq.Dynamic.Core.dll",
+        "lib/netcoreapp3.1/System.Linq.Dynamic.Core.pdb",
+        "lib/netcoreapp3.1/System.Linq.Dynamic.Core.xml",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.dll",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.pdb",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.xml",
+        "lib/netstandard2.0/System.Linq.Dynamic.Core.dll",
+        "lib/netstandard2.0/System.Linq.Dynamic.Core.pdb",
+        "lib/netstandard2.0/System.Linq.Dynamic.Core.xml",
+        "lib/netstandard2.1/System.Linq.Dynamic.Core.dll",
+        "lib/netstandard2.1/System.Linq.Dynamic.Core.pdb",
+        "lib/netstandard2.1/System.Linq.Dynamic.Core.xml",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.dll",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.pdb",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.pri",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.xml",
+        "logo.png",
+        "system.linq.dynamic.core.1.6.7.nupkg.sha512",
+        "system.linq.dynamic.core.nuspec"
+      ]
+    },
+    "System.Management/10.0.2": {
+      "sha512": "eFftuy3i844lVKCb4lJvvjKfcvPVcW8KrAdSaIOcRL42/Fisj46hwUs8Bky+4avzMe5Snm5t7aSayOI1mybYXg==",
+      "type": "package",
+      "path": "system.management/10.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Management.targets",
+        "lib/net10.0/System.Management.dll",
+        "lib/net10.0/System.Management.xml",
+        "lib/net462/_._",
+        "lib/net8.0/System.Management.dll",
+        "lib/net8.0/System.Management.xml",
+        "lib/net9.0/System.Management.dll",
+        "lib/net9.0/System.Management.xml",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net10.0/System.Management.dll",
+        "runtimes/win/lib/net10.0/System.Management.xml",
+        "runtimes/win/lib/net8.0/System.Management.dll",
+        "runtimes/win/lib/net8.0/System.Management.xml",
+        "runtimes/win/lib/net9.0/System.Management.dll",
+        "runtimes/win/lib/net9.0/System.Management.xml",
+        "system.management.10.0.2.nupkg.sha512",
+        "system.management.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Volo.Abp.Core/10.3.0": {
+      "sha512": "yTiHjKyGeAvGM4T8K8QD2Dpjn+IK8WgrL4vGjf9QG7zlvG2EkqAbN5Qe6As5LTVlM4W+EO0ElMK8sJesKyWHBQ==",
+      "type": "package",
+      "path": "volo.abp.core/10.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NuGet.md",
+        "content/Volo.Abp.Core.abppkg",
+        "content/Volo.Abp.Core.abppkg.analyze.json",
+        "lib/net10.0/Volo.Abp.Core.dll",
+        "lib/net10.0/Volo.Abp.Core.pdb",
+        "lib/net10.0/Volo.Abp.Core.xml",
+        "lib/net8.0/Volo.Abp.Core.dll",
+        "lib/net8.0/Volo.Abp.Core.pdb",
+        "lib/net8.0/Volo.Abp.Core.xml",
+        "lib/net9.0/Volo.Abp.Core.dll",
+        "lib/net9.0/Volo.Abp.Core.pdb",
+        "lib/net9.0/Volo.Abp.Core.xml",
+        "lib/netstandard2.0/Volo.Abp.Core.dll",
+        "lib/netstandard2.0/Volo.Abp.Core.pdb",
+        "lib/netstandard2.0/Volo.Abp.Core.xml",
+        "lib/netstandard2.1/Volo.Abp.Core.dll",
+        "lib/netstandard2.1/Volo.Abp.Core.pdb",
+        "lib/netstandard2.1/Volo.Abp.Core.xml",
+        "volo.abp.core.10.3.0.nupkg.sha512",
+        "volo.abp.core.nuspec"
+      ]
+    },
     "FinTrack.Core/1.0.0": {
       "type": "project",
       "path": "../FinTrack/FinTrack.Core.csproj",
@@ -2435,11 +2793,13 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "FinTrack.Core >= 1.0.0",
       "FinTrack.Infraestructure >= 1.0.0",
       "FinTrack.Services >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 9.0.13",
       "Microsoft.AspNetCore.OpenApi >= 10.0.2",
-      "Microsoft.EntityFrameworkCore.Design >= 9.0.13"
+      "Microsoft.EntityFrameworkCore.Design >= 9.0.13",
+      "Volo.Abp.Core >= 10.3.0"
     ]
   },
   "packageFolders": {
@@ -2480,6 +2840,9 @@
             },
             "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\FinTrack.Services.csproj": {
               "projectPath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Services\\FinTrack.Services.csproj"
+            },
+            "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\FinTrack.Core.csproj": {
+              "projectPath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\FinTrack.Core.csproj"
             }
           }
         }
@@ -2494,7 +2857,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
@@ -2514,6 +2877,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[9.0.13, )"
+          },
+          "Volo.Abp.Core": {
+            "target": "Package",
+            "version": "[10.3.0, )"
           }
         },
         "imports": [
@@ -2535,7 +2902,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

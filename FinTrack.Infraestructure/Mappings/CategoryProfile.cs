@@ -9,7 +9,9 @@ namespace FinTrack.Infrastructure.Mappings
         public CategoryProfile()
         {
             CreateMap<Category, CategoryDto>();
-            CreateMap<CategoryDto, Category>().ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => (ulong)1));
+            CreateMap<CategoryDto, Category>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => (ulong)1));
         }
     }
 }

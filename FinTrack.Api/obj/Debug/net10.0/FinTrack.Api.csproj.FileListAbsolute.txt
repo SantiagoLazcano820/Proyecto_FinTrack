@@ -135,3 +135,13 @@ C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\Fl
 C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\FinTrack.Services.dll
 C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\FinTrack.Services.pdb
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\BCrypt.Net-Next.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\JetBrains.Annotations.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\Nito.AsyncEx.Context.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\Nito.AsyncEx.Tasks.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\Nito.Disposables.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\System.Linq.Dynamic.Core.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\System.Management.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\Volo.Abp.Core.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\runtimes\win\lib\net10.0\System.Management.dll
+C:\Users\Santiago\Documents\Tec Web l\FinTrack\FinTrack.Api\bin\Debug\net10.0\Dapper.dll

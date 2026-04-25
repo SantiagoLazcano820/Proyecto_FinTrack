@@ -9,6 +9,7 @@
       "FinTrack.Infraestructure/1.0.0": {
         "dependencies": {
           "AutoMapper": "13.0.1",
+          "Dapper": "2.1.72",
           "FinTrack.Core": "1.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.13",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.14",
@@ -26,6 +27,14 @@
           "lib/net6.0/AutoMapper.dll": {
             "assemblyVersion": "13.0.0.0",
             "fileVersion": "13.0.1.0"
+          }
+        }
+      },
+      "Dapper/2.1.72": {
+        "runtime": {
+          "lib/net10.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.72.10375"
           }
         }
       },
@@ -615,6 +624,13 @@
       "sha512": "sha512-/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
       "path": "automapper/13.0.1",
       "hashPath": "automapper.13.0.1.nupkg.sha512"
+    },
+    "Dapper/2.1.72": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
+      "path": "dapper/2.1.72",
+      "hashPath": "dapper.2.1.72.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",

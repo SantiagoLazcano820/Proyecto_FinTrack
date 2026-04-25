@@ -1,11 +1,15 @@
 
+using FinTrack.Api.Middleware;
 using FinTrack.Core.Interfaces;
 using FinTrack.Infraestructure.Data;
 using FinTrack.Infraestructure.Repositories;
+using FinTrack.Infrastructure.Data;
+using FinTrack.Infrastructure.Repositories;
 using FinTrack.Services.Interfaces;
 using FinTrack.Services.Services;
 using FinTrack.Services.Validators;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 
 namespace FinTrack.Api
 {
@@ -32,7 +36,11 @@ namespace FinTrack.Api
                 {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 }
-                );
+                ).ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressModelStateInvalidFilter = true;
+                });
+            ;
 
             //builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
             // --- VALIDATORS (Transient está bien para estos) ---
@@ -56,10 +64,22 @@ namespace FinTrack.Api
             // --- AUTOMAPPER ---
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            // --- UNITOFWORK ---
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            // fábrica
+            builder.Services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
+
+            // contexto
+            builder.Services.AddScoped<IDapperContext, DapperContext>();
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
+
+            // ---MIDDLEWARE ---
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

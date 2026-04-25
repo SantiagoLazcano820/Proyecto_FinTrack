@@ -1,0 +1,18 @@
+﻿using System.Net;
+
+namespace FinTrack.Core.Exceptions
+{
+    public class BusinessException : Exception
+    {
+        public HttpStatusCode StatusCode { get; }
+        public object? Details { get; }
+
+        public BusinessException(string message,
+            HttpStatusCode statusCode = HttpStatusCode.BadRequest,
+            object? details = null)
+        {
+            StatusCode = statusCode;
+            Details = details;
+        }
+    }
+}

@@ -17,4 +17,8 @@ public partial class User : BaseEntity
     public ulong IsActive { get; set; }
 
     public virtual Role Role { get; set; } = null!;
+
+    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+    public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 }

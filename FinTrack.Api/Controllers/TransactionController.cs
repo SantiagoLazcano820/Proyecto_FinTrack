@@ -2,9 +2,13 @@
 using FinTrack.API.Responses;
 using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
+using FinTrack.Core.Exceptions;
+using FinTrack.Core.QueryFilters;
 using FinTrack.Services.Interfaces;
 using FinTrack.Services.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FinTrack.Api.Controllers
 {
@@ -34,9 +38,9 @@ namespace FinTrack.Api.Controllers
 
         #region Con Dto Mapper
         [HttpGet("dto/mapper/")]
-        public async Task<IActionResult> GetTransactionsDtoMapper()
+        public async Task<IActionResult> GetTransactionsDtoMapper([FromQuery] TransactionQueryFilter filters)
         {
-            var transactions = await _transactionService.GetAllTransactionsAsync();
+            var transactions = await _transactionService.GetAllTransactionsAsync(filters);
             var transactionsDto = _mapper.Map<IEnumerable<TransactionDto>>(transactions);
             var response = new ApiResponse<IEnumerable<TransactionDto>>(transactionsDto);
             return Ok(response);
@@ -47,7 +51,7 @@ namespace FinTrack.Api.Controllers
         {
             var transaction = await _transactionService.GetTransactionByIdAsync(id);
             if (transaction == null)
-                return NotFound("Transacción no encontrada.");
+                throw new BusinessException("Transacción no encontrada.", HttpStatusCode.NotFound);
 
             var transactionDto = _mapper.Map<TransactionDto>(transaction);
             var response = new ApiResponse<TransactionDto>(transactionDto);
@@ -60,11 +64,7 @@ namespace FinTrack.Api.Controllers
             var validationResult = await _crearValidator.ValidateAsync(transactionDto);
             if (!validationResult.IsValid)
             {
-                return BadRequest(new
-                {
-                    message = "Error de validación",
-                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
-                });
+                throw new ValidationException(validationResult.Errors);
             }
 
             try
@@ -74,9 +74,13 @@ namespace FinTrack.Api.Controllers
                 var response = new ApiResponse<Transaction>(transaction);
                 return Ok(response);
             }
+            catch (BusinessException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error al registrar", error = ex.Message });
+                throw new Exception("Error crítico al registrar la transacción.", ex);
             }
         }
 
@@ -84,31 +88,31 @@ namespace FinTrack.Api.Controllers
         public async Task<IActionResult> UpdateTransactionDtoMapper(int id, [FromBody] TransactionDto transactionDto)
         {
             if (id != transactionDto.Id)
-                return BadRequest("El ID no coincide.");
+                throw new BusinessException("El ID de la transacción no coincide.", HttpStatusCode.BadRequest);
 
             var validationResult = await _actualizarValidator.ValidateAsync(transactionDto);
             if (!validationResult.IsValid)
             {
-                return BadRequest(new
-                {
-                    message = "Error de validación",
-                    errors = validationResult.Errors.Select(e => new { field = e.PropertyName, error = e.ErrorMessage })
-                });
+                throw new ValidationException(validationResult.Errors);
             }
             var transaction = await _transactionService.GetTransactionByIdAsync(id);
             if (transaction == null)
-                return NotFound("Transacción no encontrada.");
+                throw new BusinessException("La transacción no existe para ser editada.", HttpStatusCode.NotFound);
 
             try
             {
                 _mapper.Map(transactionDto, transaction);
-                await _transactionService.UpdateTransaction(transaction);
+                _transactionService.UpdateTransaction(transaction);
                 var response = new ApiResponse<Transaction>(transaction);
                 return Ok(response);
             }
+            catch (BusinessException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error al actualizar", error = ex.Message });
+                throw new Exception("Error inesperado al actualizar la transacción.", ex);
             }
         }
 
@@ -117,7 +121,7 @@ namespace FinTrack.Api.Controllers
         {
             var transaction = await _transactionService.GetTransactionByIdAsync(id);
             if (transaction == null)
-                return NotFound("Transacción no encontrada.");
+                throw new BusinessException("Transacción no encontrada para eliminar.", HttpStatusCode.NotFound);
 
             try
             {
@@ -125,9 +129,13 @@ namespace FinTrack.Api.Controllers
                 var response = new ApiResponse<bool>(true);
                 return Ok(response);
             }
+            catch (BusinessException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error al eliminar", error = ex.Message });
+                throw new Exception("Error crítico al intentar eliminar la transacción.", ex);
             }
         }
         #endregion
