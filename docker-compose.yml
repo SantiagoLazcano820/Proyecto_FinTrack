@@ -1,0 +1,49 @@
+services:
+
+  # ─── Base de Datos MySQL 8 ────────────────────────────────────────────────
+  db:
+    image: mysql:8.0
+    container_name: fintrack_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "2402"
+      MYSQL_DATABASE: DbFinTrack
+    ports:
+      - "3306:3306"
+    volumes:
+      - fintrack_mysql_data:/var/lib/mysql
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql:ro
+    command: --lower_case_table_names=1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p2402"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - fintrack_net
+
+  # ─── API .NET 9 ───────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fintrack_api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5065:5065"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "http://+:5065"
+      ConnectionStrings__ConnectionMySql: "Server=db;Port=3306;Database=DbFinTrack;Uid=root;Pwd=2402;"
+    networks:
+      - fintrack_net
+
+volumes:
+  fintrack_mysql_data:
+
+networks:
+  fintrack_net:
+    driver: bridge

@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using FinTrack.Core.Enum;
 using FinTrack.Core.Interfaces;
 using System.Data;
@@ -194,6 +194,36 @@ namespace FinTrack.Infrastructure.Data
                 if (owns)
                 {
                     if (conn is DbConnection dbConn && dbConn.State != ConnectionState.Closed) await dbConn.CloseAsync();
+                    conn.Dispose();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Ejecuta un SELECT con multi-mapping (JOIN entre dos entidades).
+        /// </summary>
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(
+            string sql,
+            Func<TFirst, TSecond, TReturn> map,
+            object? param = null,
+            string splitOn = "Id")
+        {
+            var (conn, tx, owns) = GetConnAndTx();
+            try
+            {
+                await OpenIfNeededAsync(conn);
+                return await conn.QueryAsync(sql, map, param, tx, true, splitOn);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (owns)
+                {
+                    if (conn is DbConnection dbConn && dbConn.State != ConnectionState.Closed)
+                        await dbConn.CloseAsync();
                     conn.Dispose();
                 }
             }
