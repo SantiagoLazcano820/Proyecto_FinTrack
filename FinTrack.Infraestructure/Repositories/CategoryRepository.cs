@@ -9,7 +9,7 @@ namespace FinTrack.Infraestructure.Repositories
     public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
         private readonly IDapperContext _dapper;
-        public CategoryRepository(FinTrackContext context, IDapperContext dapper) : base(context) 
+        public CategoryRepository(FinTrackContext context, IDapperContext dapper) : base(context)
         {
             _dapper = dapper;
         }

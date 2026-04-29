@@ -1,4 +1,5 @@
 ﻿using FinTrack.Core.Entities;
+using System.Data;
 
 namespace FinTrack.Core.Interfaces
 {
@@ -10,5 +11,12 @@ namespace FinTrack.Core.Interfaces
 
         void SaveChanges();
         Task SaveChangesAsync();
+
+        Task BeginTransactionAsync();
+        Task CommitAsync();
+        Task RollbackAsync();
+
+        IDbConnection GetDbConnection();
+        IDbTransaction? GetDbTransaction();
     }
 }

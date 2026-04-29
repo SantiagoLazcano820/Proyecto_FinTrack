@@ -60,11 +60,11 @@ namespace FinTrack.Api.Controllers
         }
 
         [HttpGet("dto/mapper/dapper/")]
-        public async Task<IActionResult> GetUsersDtoMapperDapper(int id)
+        public async Task<IActionResult> GetUsersDtoMapperDapper()
         {
-            var user = await _userService.GetUserByIdDapperAsync(id);
-            var userDto = _mapper.Map<UserDto>(user);
-            var response = new ApiResponse<UserDto>(userDto);
+            var users = await _userService.GetAllUsersDapperAsync();
+            var usersDto = _mapper.Map<IEnumerable<UserDto>>(users); 
+            var response = new ApiResponse<IEnumerable<UserDto>>(usersDto);
             return Ok(response);
         }
 

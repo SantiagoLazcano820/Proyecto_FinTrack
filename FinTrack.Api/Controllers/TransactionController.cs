@@ -59,7 +59,7 @@ namespace FinTrack.Api.Controllers
         }
 
         [HttpGet("dto/mapper/dapper/")]
-        public async Task<IActionResult> GetTransactionsDtoMapperDapper(int userId)
+        public async Task<IActionResult> GetTransactionsDtoMapperDapper()
         {
             var transactions = await _transactionService.GetAllTransactionsDapperAsync();
             var transactionsDto = _mapper.Map<IEnumerable<TransactionDto>>(transactions);
@@ -67,8 +67,8 @@ namespace FinTrack.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("dto/mapper/{id}")]
-        public async Task<IActionResult> GetTransactionByIdDtoMappeDapperr(int id)
+        [HttpGet("dto/mapper/dapper/{id}")]
+        public async Task<IActionResult> GetTransactionByIdDtoMapperDapper(int id)
         {
             var transaction = await _transactionService.GetTransactionByIdDapperAsync(id);
             if (transaction == null)

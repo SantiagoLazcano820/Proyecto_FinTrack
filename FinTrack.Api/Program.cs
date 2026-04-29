@@ -55,6 +55,8 @@ namespace FinTrack.Api
             // --- REPOSITORIES ---
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             // --- SERVICES ---
             builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -68,7 +70,7 @@ namespace FinTrack.Api
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // fábrica
-            builder.Services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
+            builder.Services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 
             // contexto
             builder.Services.AddScoped<IDapperContext, DapperContext>();
