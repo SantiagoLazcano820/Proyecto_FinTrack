@@ -59,6 +59,27 @@ namespace FinTrack.Api.Controllers
             return Ok(response);
         }
 
+        [HttpGet("dto/mapper/dapper/")]
+        public async Task<IActionResult> GetUsersDtoMapperDapper(int id)
+        {
+            var user = await _userService.GetUserByIdDapperAsync(id);
+            var userDto = _mapper.Map<UserDto>(user);
+            var response = new ApiResponse<UserDto>(userDto);
+            return Ok(response);
+        }
+
+        [HttpGet("dto/mapper/dapper/{id}")]
+        public async Task<IActionResult> GetUserByIdDtoMapperDapper(int id)
+        {
+            var user = await _userService.GetUserByIdDapperAsync(id);
+            if (user == null)
+                throw new BusinessException("Usuario no encontrado.", HttpStatusCode.NotFound);
+
+            var userDto = _mapper.Map<UserDto>(user);
+            var response = new ApiResponse<UserDto>(userDto);
+            return Ok(response);
+        }
+
         [HttpPost("dto/mapper/")]
         public async Task<IActionResult> InsertUserDtoMapper(UserDto userDto)
         {

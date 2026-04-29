@@ -4,6 +4,8 @@ namespace FinTrack.Core.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<User> GetUserByEmailAsync(string email);
+        Task<User> GetUserByEmailDapperAsync(string email);
+        Task<IEnumerable<User>> GetAllUsersDapperAsync();
+        Task<User> GetUserByIdDapperAsync(int id);
     }
 }

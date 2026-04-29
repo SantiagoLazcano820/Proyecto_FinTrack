@@ -58,6 +58,27 @@ namespace FinTrack.Api.Controllers
             return Ok(response);
         }
 
+        [HttpGet("dto/mapper/dapper/")]
+        public async Task<IActionResult> GetTransactionsDtoMapperDapper(int userId)
+        {
+            var transactions = await _transactionService.GetAllTransactionsDapperAsync();
+            var transactionsDto = _mapper.Map<IEnumerable<TransactionDto>>(transactions);
+            var response = new ApiResponse<IEnumerable<TransactionDto>>(transactionsDto);
+            return Ok(response);
+        }
+
+        [HttpGet("dto/mapper/{id}")]
+        public async Task<IActionResult> GetTransactionByIdDtoMappeDapperr(int id)
+        {
+            var transaction = await _transactionService.GetTransactionByIdDapperAsync(id);
+            if (transaction == null)
+                throw new BusinessException("Transacción no encontrada.", HttpStatusCode.NotFound);
+
+            var transactionDto = _mapper.Map<TransactionDto>(transaction);
+            var response = new ApiResponse<TransactionDto>(transactionDto);
+            return Ok(response);
+        }
+
         [HttpPost("dto/mapper/")]
         public async Task<IActionResult> InsertTransactionDtoMapper(TransactionDto transactionDto)
         {
@@ -137,6 +158,21 @@ namespace FinTrack.Api.Controllers
             {
                 throw new Exception("Error crítico al intentar eliminar la transacción.", ex);
             }
+        }
+
+        [HttpGet("balance/dapper")]
+        public async Task<IActionResult> GetMonthlyBalance(int userId, int month, int year)
+        {
+            var balance = await _transactionService.GetMonthlyBalance(userId, month, year);
+
+            if (balance == null)
+            {
+                throw new BusinessException("No se encontró información de balance para el periodo especificado.", HttpStatusCode.NotFound);
+            }
+
+            var response = new ApiResponse<MonthlyBalanceDto>(balance);
+
+            return Ok(response);
         }
         #endregion
     }

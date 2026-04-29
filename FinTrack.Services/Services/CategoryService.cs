@@ -44,9 +44,19 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.CategoryRepository.GetById(id);
         }
 
+        public async Task<IEnumerable<Category>> GetAllCategoriesDapperAsync()
+        {
+            return await _unitOfWork.CategoryRepository.GetAllCategoriesDapperAsync();
+        }
+
+        public async Task<Category> GetCategoryByIdDapperAsync(int id)
+        {
+            return await _unitOfWork.CategoryRepository.GetCategoryByIdDapperAsync(id);
+        }
+
         public async Task InsertCategory(Category category)
         {
-            var userCategories = await _unitOfWork.CategoryRepository.GetCategoriesByUserIdAsync(category.UserId);
+            var userCategories = await _unitOfWork.CategoryRepository.GetCategoriesByUserIdDapperAsync(category.UserId);
 
             if (userCategories.Count() >= 15)
             {
@@ -84,7 +94,7 @@ namespace FinTrack.Services.Services
                 throw new BusinessException("No tienes permiso para eliminar esta categoría o no existe.", HttpStatusCode.Forbidden);
             }
 
-            var hasTransactions = (await _unitOfWork.TransactionRepository.GetTransactionsByUserIdAsync(userId))
+            var hasTransactions = (await _unitOfWork.TransactionRepository.GetTransactionsByUserIdDapperAsync(userId))
                                   .Any(t => t.CategoryId == id);
 
             if (hasTransactions)

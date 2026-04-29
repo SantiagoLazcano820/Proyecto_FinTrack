@@ -33,5 +33,11 @@ namespace FinTrack.Core.Interfaces
             IDbTransaction? tx);
 
         void ClearAmbientConnection();
+
+        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(
+            string sql,
+            Func<TFirst, TSecond, TReturn> map,
+            object param = null,
+            string splitOn = "Id");
     }
 }

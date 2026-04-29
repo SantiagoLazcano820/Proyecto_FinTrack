@@ -7,6 +7,8 @@ namespace FinTrack.Services.Interfaces
     {
         Task<IEnumerable<User>> GetAllUsersAsync(UserQueryFilter filters);
         Task<User> GetUserByIdAsync(int id);
+        Task<IEnumerable<User>> GetAllUsersDapperAsync();
+        Task<User> GetUserByIdDapperAsync(int id);
         Task InsertUser(User user);
         void UpdateUser(User user);
         Task<bool> DeleteUser(int id);

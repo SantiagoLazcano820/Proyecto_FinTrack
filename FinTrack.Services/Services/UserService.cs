@@ -49,6 +49,16 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.UserRepository.GetById(id);
         }
 
+        public async Task<IEnumerable<User>> GetAllUsersDapperAsync()
+        {
+            return await _unitOfWork.UserRepository.GetAllUsersDapperAsync();
+        }
+
+        public async Task<User> GetUserByIdDapperAsync(int id)
+        {
+            return await _unitOfWork.UserRepository.GetUserByIdDapperAsync(id);
+        }
+
         public async Task InsertUser(User user)
         {
             var users = await _unitOfWork.UserRepository.GetAll();
@@ -121,7 +131,7 @@ namespace FinTrack.Services.Services
                 throw new BusinessException("Mantenimiento: Acceso disponible a partir de las 04:00 AM.", HttpStatusCode.ServiceUnavailable);
             }
 
-            var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(email);
+            var user = await _unitOfWork.UserRepository.GetUserByEmailDapperAsync(email);
 
             if (user != null)
             {

@@ -1,4 +1,5 @@
-﻿using FinTrack.Core.Entities;
+﻿using FinTrack.Core.DTOs;
+using FinTrack.Core.Entities;
 using FinTrack.Core.Exceptions;
 using FinTrack.Core.Helpers;
 using FinTrack.Core.Interfaces;
@@ -67,6 +68,16 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.TransactionRepository.GetById(id);
         }
 
+        public async Task<IEnumerable<Transaction>> GetAllTransactionsDapperAsync()
+        {
+            return await _unitOfWork.TransactionRepository.GetAllTransactionsDapperAsync();
+        }
+
+        public async Task<Transaction> GetTransactionByIdDapperAsync(int id)
+        {
+            return await _unitOfWork.TransactionRepository.GetTransactionByIdDapperAsync(id);
+        }
+
         public async Task InsertTransaction(Transaction transaction)
         {
             var user = await _unitOfWork.UserRepository.GetById(transaction.UserId);
@@ -85,7 +96,7 @@ namespace FinTrack.Services.Services
                 throw new BusinessException("No se permite registrar transacciones con más de 30 días a futuro.", HttpStatusCode.BadRequest);
             }
 
-            var userTransactions = await _unitOfWork.TransactionRepository.GetTransactionsByUserIdAsync(transaction.UserId);
+            var userTransactions = await _unitOfWork.TransactionRepository.GetTransactionsByUserIdDapperAsync(transaction.UserId);
 
             if (userTransactions.Count() < 5)
             {
@@ -107,13 +118,40 @@ namespace FinTrack.Services.Services
 
         public void UpdateTransaction(Transaction transaction)
         {
-            var existing = _unitOfWork.TransactionRepository.GetById(transaction.Id);
+            var existing = _unitOfWork.TransactionRepository.GetById(transaction.Id).Result;
+
             if (existing == null)
             {
-                throw new BusinessException("El transaccion no existe para ser editada", HttpStatusCode.BadRequest);
+                throw new BusinessException("La transacción no existe para ser editada", HttpStatusCode.BadRequest);
             }
+            if (existing.UserId != transaction.UserId)
+            {
+                throw new BusinessException("No tienes permiso para editar esta transacción.", HttpStatusCode.Forbidden);
+            }
+            if (existing.Date < DateTime.Now.AddDays(-60))
+            {
+                throw new BusinessException("No se pueden editar transacciones con más de 60 días de antigüedad.", HttpStatusCode.BadRequest);
+            }
+            if (!existing.Type.Equals(transaction.Type, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new BusinessException("No se permite cambiar el tipo de transacción.", HttpStatusCode.BadRequest);
+            }
+            if (string.IsNullOrWhiteSpace(transaction.Description))
+            {
+                transaction.Description = $"(Editado el {DateTime.Now:dd/MM/yyyy})";
+            }
+            if (ContainsForbiddenContent(transaction.Description))
+            {
+                throw new BusinessException("La nueva descripción contiene palabras no permitidas.", HttpStatusCode.UnprocessableEntity);
+            }
+            var category = _unitOfWork.CategoryRepository.GetById(transaction.CategoryId).Result;
+            if (category == null || category.UserId != transaction.UserId)
+            {
+                throw new BusinessException("La categoría seleccionada no es válida o no te pertenece.", HttpStatusCode.BadRequest);
+            }
+
             _unitOfWork.TransactionRepository.Update(transaction);
-            _unitOfWork.SaveChangesAsync();
+            _unitOfWork.SaveChanges();
         }
 
         public async Task<bool> DeleteTransaction(int id)
@@ -121,11 +159,55 @@ namespace FinTrack.Services.Services
             var existing = await _unitOfWork.TransactionRepository.GetById(id);
             if (existing == null)
             {
-                return false;
+                throw new BusinessException("La transacción no existe.", HttpStatusCode.NotFound);
             }
+            if (existing.Date < DateTime.Now.AddDays(-60))
+            {
+                throw new BusinessException("No se pueden eliminar transacciones con más de 60 días de antigüedad.", HttpStatusCode.BadRequest);
+            }
+            if (existing.Type.Equals("Income", StringComparison.OrdinalIgnoreCase))
+            {
+                decimal saldoActual = await _unitOfWork.TransactionRepository.GetTotalBalanceByUserId(existing.UserId);
+
+                if (saldoActual - existing.Amount < 0)
+                {
+                    throw new BusinessException("No puedes eliminar este ingreso porque tu saldo quedaría en negativo.", HttpStatusCode.BadRequest);
+                }
+            }
+
             await _unitOfWork.TransactionRepository.Delete(id);
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<MonthlyBalanceDto> GetMonthlyBalance(int userId, int month, int year)
+        {
+            DateTime fechaConsulta = new DateTime(year, month, 1);
+            DateTime fechaActual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+            if (fechaConsulta > fechaActual)
+            {
+                return new MonthlyBalanceDto
+                {
+                    Message = "No hay datos proyectados para meses futuros.",
+                    TotalIncomes = 0,
+                    TotalExpenses = 0,
+                    IsDeficit = false
+                };
+            }
+            if (fechaConsulta < fechaActual.AddMonths(-24))
+            {
+                throw new BusinessException("Solo se permite consultar balances de hasta 24 meses atrás.", HttpStatusCode.BadRequest);
+            }
+
+            var balance = await _unitOfWork.TransactionRepository.GetMonthlyBalanceDapperAsync(userId, month, year);
+
+            if (balance != null)
+            {
+                balance.IsDeficit = balance.TotalExpenses > balance.TotalIncomes;
+            }
+
+            return balance ?? new MonthlyBalanceDto();
         }
 
         public readonly string[] ForbiddenWords = 

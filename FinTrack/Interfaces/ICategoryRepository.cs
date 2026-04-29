@@ -4,6 +4,8 @@ namespace FinTrack.Core.Interfaces
 {
     public interface ICategoryRepository : IBaseRepository<Category>
     {
-        Task<IEnumerable<Category>> GetCategoriesByUserIdAsync(int userId);
+        Task<IEnumerable<Category>> GetCategoriesByUserIdDapperAsync(int userId);
+        Task<IEnumerable<Category>> GetAllCategoriesDapperAsync();
+        Task<Category> GetCategoryByIdDapperAsync(int id);
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FinTrack.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97efa6a865cd07225ecba0a052c5ffd02ce0912c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d564e946e5221799f8527b2b7cafa38833993d12")]
 [assembly: System.Reflection.AssemblyProductAttribute("FinTrack.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FinTrack.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

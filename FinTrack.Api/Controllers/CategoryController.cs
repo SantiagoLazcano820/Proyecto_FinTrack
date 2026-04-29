@@ -59,6 +59,27 @@ namespace FinTrack.Api.Controllers
             return Ok(response);
         }
 
+        [HttpGet("dto/mapper/dapper/")]
+        public async Task<IActionResult> GetCategoriesDtoMapperDapper()
+        {
+            var categories = await _categoryService.GetAllCategoriesDapperAsync(); 
+            var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+            var response = new ApiResponse<IEnumerable<CategoryDto>>(categoriesDto);
+            return Ok(response);
+        }
+
+        [HttpGet("dto/mapper/dapper/{id}")]
+        public async Task<IActionResult> GetCategoryByIdDtoMapperDapper(int id)
+        {
+            var category = await _categoryService.GetCategoryByIdDapperAsync(id);
+            if (category == null)
+                throw new BusinessException("Categoría no encontrada.", HttpStatusCode.NotFound);
+
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+            var response = new ApiResponse<CategoryDto>(categoryDto);
+            return Ok(response);
+        }
+
         [HttpPost("dto/mapper/")]
         public async Task<IActionResult> InsertCategoryDtoMapper(CategoryDto categoryDto)
         {
