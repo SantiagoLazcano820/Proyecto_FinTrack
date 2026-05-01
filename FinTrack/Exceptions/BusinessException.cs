@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 
 namespace FinTrack.Core.Exceptions
 {
@@ -9,7 +9,7 @@ namespace FinTrack.Core.Exceptions
 
         public BusinessException(string message,
             HttpStatusCode statusCode = HttpStatusCode.BadRequest,
-            object? details = null)
+            object? details = null) : base(message)
         {
             StatusCode = statusCode;
             Details = details;

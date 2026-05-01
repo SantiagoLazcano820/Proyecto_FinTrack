@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using FinTrack.API.Responses;
 using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
