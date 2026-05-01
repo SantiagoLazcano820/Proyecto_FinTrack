@@ -59,9 +59,9 @@ namespace FinTrack.Api.Controllers
         }
 
         [HttpGet("dto/mapper/dapper/")]
-        public async Task<IActionResult> GetTransactionsDtoMapperDapper()
+        public async Task<IActionResult> GetTransactionsDtoMapperDapper([FromQuery] TransactionQueryFilter filters)
         {
-            var transactions = await _transactionService.GetAllTransactionsDapperAsync();
+            var transactions = await _transactionService.GetAllTransactionsDapperAsync(filters);
             var transactionsDto = _mapper.Map<IEnumerable<TransactionDto>>(transactions);
             var response = new ApiResponse<IEnumerable<TransactionDto>>(transactionsDto);
             return Ok(response);

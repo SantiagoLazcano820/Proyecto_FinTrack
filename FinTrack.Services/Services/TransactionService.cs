@@ -68,9 +68,39 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.TransactionRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<Transaction>> GetAllTransactionsDapperAsync()
+        public async Task<IEnumerable<Transaction>> GetAllTransactionsDapperAsync(TransactionQueryFilter filters)
         {
-            return await _unitOfWork.TransactionRepository.GetAllTransactionsDapperAsync();
+            var transactions = await _unitOfWork.TransactionRepository.GetAllTransactionsDapperAsync();
+            if (filters != null)
+            {
+                if (filters.UserId != null)
+                {
+                    transactions = transactions.Where(x => x.UserId == filters.UserId);
+                }
+                if (filters.CategoryId != null)
+                {
+                    transactions = transactions.Where(x => x.CategoryId == filters.CategoryId);
+                }
+                if (!string.IsNullOrEmpty(filters.Type))
+                {
+                    transactions = transactions.Where(x => x.Type == filters.Type);
+                }
+
+                if (!string.IsNullOrEmpty(filters.Date))
+                {
+                    string fechaAux = Procesos.ParseFechaFlexible(filters.Date);
+                    if (fechaAux != null)
+                    {
+                        var fechaComparar = DateTime.ParseExact(fechaAux, "dd/MM/yyyy", null);
+                        transactions = transactions.Where(x => x.Date.Date == fechaComparar.Date);
+                    }
+                }
+                if (!string.IsNullOrEmpty(filters.Description))
+                {
+                    transactions = transactions.Where(x => x.Description.ToLower().Contains(filters.Description.ToLower()));
+                }
+            }
+            return transactions;
         }
 
         public async Task<Transaction> GetTransactionByIdDapperAsync(int id)

@@ -44,9 +44,21 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.CategoryRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesDapperAsync()
+        public async Task<IEnumerable<Category>> GetAllCategoriesDapperAsync(CategoryQueryFilter filters)
         {
-            return await _unitOfWork.CategoryRepository.GetAllCategoriesDapperAsync();
+            var categories = await _unitOfWork.CategoryRepository.GetAllCategoriesDapperAsync();
+            if (filters != null)
+            {
+                if (filters.UserId != null)
+                {
+                    categories = categories.Where(x => x.UserId == filters.UserId);
+                }
+                if (!string.IsNullOrEmpty(filters.Name))
+                {
+                    categories = categories.Where(x => x.Name.ToLower().Contains(filters.Name.ToLower()));
+                }
+            }
+            return categories;
         }
 
         public async Task<Category> GetCategoryByIdDapperAsync(int id)

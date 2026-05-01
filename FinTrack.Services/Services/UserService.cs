@@ -49,9 +49,25 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.UserRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersDapperAsync()
+        public async Task<IEnumerable<User>> GetAllUsersDapperAsync(UserQueryFilter filters)
         {
-            return await _unitOfWork.UserRepository.GetAllUsersDapperAsync();
+            var users = await _unitOfWork.UserRepository.GetAllUsersDapperAsync();
+            if (filters != null)
+            {
+                if (!string.IsNullOrEmpty(filters.Name))
+                {
+                    users = users.Where(x => x.Name.ToLower().Contains(filters.Name.ToLower()));
+                }
+                if (!string.IsNullOrEmpty(filters.LastName))
+                {
+                    users = users.Where(x => x.LastName.ToLower().Contains(filters.LastName.ToLower()));
+                }
+                if (!string.IsNullOrEmpty(filters.Email))
+                {
+                    users = users.Where(x => x.Email.ToLower().Contains(filters.Email.ToLower()));
+                }
+            }
+            return users;
         }
 
         public async Task<User> GetUserByIdDapperAsync(int id)

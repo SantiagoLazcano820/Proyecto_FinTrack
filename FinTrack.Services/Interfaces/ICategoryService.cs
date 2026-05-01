@@ -7,7 +7,7 @@ namespace FinTrack.Services.Interfaces
     {
         Task<IEnumerable<Category>> GetAllCategoriesAsync(CategoryQueryFilter filters);
         Task<Category> GetCategoryByIdAsync(int id);
-        Task<IEnumerable<Category>> GetAllCategoriesDapperAsync();
+        Task<IEnumerable<Category>> GetAllCategoriesDapperAsync(CategoryQueryFilter filters);
         Task<Category> GetCategoryByIdDapperAsync(int id);
         Task InsertCategory(Category category);
         void UpdateCategory(Category category);

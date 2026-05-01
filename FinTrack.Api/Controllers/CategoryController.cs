@@ -42,7 +42,6 @@ namespace FinTrack.Api.Controllers
         {
             var categories = await _categoryService.GetAllCategoriesAsync(filters);
             var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
-
             var response = new ApiResponse<IEnumerable<CategoryDto>>(categoriesDto);
             return Ok(response);
         }
@@ -60,9 +59,9 @@ namespace FinTrack.Api.Controllers
         }
 
         [HttpGet("dto/mapper/dapper/")]
-        public async Task<IActionResult> GetCategoriesDtoMapperDapper()
+        public async Task<IActionResult> GetCategoriesDtoMapperDapper([FromQuery] CategoryQueryFilter filters)
         {
-            var categories = await _categoryService.GetAllCategoriesDapperAsync(); 
+            var categories = await _categoryService.GetAllCategoriesDapperAsync(filters); 
             var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
             var response = new ApiResponse<IEnumerable<CategoryDto>>(categoriesDto);
             return Ok(response);

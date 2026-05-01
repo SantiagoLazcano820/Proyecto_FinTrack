@@ -8,7 +8,7 @@ namespace FinTrack.Services.Interfaces
     {
         Task<IEnumerable<Transaction>> GetAllTransactionsAsync(TransactionQueryFilter filters);
         Task<Transaction> GetTransactionByIdAsync(int id);
-        Task<IEnumerable<Transaction>> GetAllTransactionsDapperAsync();
+        Task<IEnumerable<Transaction>> GetAllTransactionsDapperAsync(TransactionQueryFilter filters);
         Task<Transaction> GetTransactionByIdDapperAsync(int id);
         Task InsertTransaction(Transaction transaction);
         void UpdateTransaction(Transaction transaction);
