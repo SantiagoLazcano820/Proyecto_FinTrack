@@ -416,3 +416,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Recursos locales - no subir al repo
+recursosdelProyectoFintrack/

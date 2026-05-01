@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using FinTrack.Core.Enum;
 using FinTrack.Core.Interfaces;
 using System.Data;
