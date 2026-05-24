@@ -11,11 +11,11 @@
         /// <summary>
         /// Rol con privilegios totales de administración y control del ecosistema.
         /// </summary>
-        Administrator,
+        Admin,
 
         /// <summary>
         /// Rol de usuario consumidor estándar para la gestión de sus finanzas personales.
         /// </summary>
-        Consumer
+        StandardUser
     }
 }

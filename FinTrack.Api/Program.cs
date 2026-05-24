@@ -53,7 +53,6 @@ namespace FinTrack.Api
             builder.Services.AddTransient<ActualizarTransactionDtoValidator>();
             builder.Services.AddTransient<CrearUserDtoValidator>();
             builder.Services.AddTransient<ActualizarUserDtoValidator>();
-            builder.Services.AddTransient<LoginUserDtoValidator>();
 
             // --- REPOSITORIES ---
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

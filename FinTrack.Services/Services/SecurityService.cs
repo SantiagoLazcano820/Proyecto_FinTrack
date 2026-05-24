@@ -25,7 +25,7 @@ namespace FinTrack.Core.Services
             }
             var horaActual = DateTime.Now.Hour;
             var securityUser = await _unitOfWork.SecurityRepository.GetLoginByCredentials(userLogin);
-            if (securityUser != null && securityUser.Role == RoleType.Consumer)
+            if (securityUser != null && securityUser.Role == RoleType.StandardUser)
             {
                 if (horaActual >= 2 && horaActual < 4)
                 {

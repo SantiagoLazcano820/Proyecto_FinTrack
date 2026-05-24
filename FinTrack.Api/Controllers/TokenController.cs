@@ -12,7 +12,7 @@ using System.Text;
 
 namespace FinTrack.Api.Controllers
 {
-    [Authorize(Roles = nameof(RoleType.Administrator))]
+    [Authorize(Roles = nameof(RoleType.Admin))]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
