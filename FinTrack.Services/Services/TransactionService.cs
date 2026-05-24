@@ -1,5 +1,7 @@
-﻿using FinTrack.Core.DTOs;
+﻿using FinTrack.Core.CustomEntities;
+using FinTrack.Core.DTOs;
 using FinTrack.Core.Entities;
+using FinTrack.Core.Enum;
 using FinTrack.Core.Exceptions;
 using FinTrack.Core.Helpers;
 using FinTrack.Core.Interfaces;
@@ -12,22 +14,14 @@ namespace FinTrack.Services.Services
 {
     public class TransactionService : ITransactionService
     {
-        //public readonly IBaseRepository<Transaction> _transactionRepository;
-        //public readonly IBaseRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
-
-        //public TransactionService(IBaseRepository<Transaction> transactionRepository, IBaseRepository<User> userRepository)
-        //{
-        //    _transactionRepository = transactionRepository;
-        //    _userRepository = userRepository;
-        //}
 
         public TransactionService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync(TransactionQueryFilter filters)
+        public async Task<ResponseData> GetAllTransactionsAsync(TransactionQueryFilter filters)
         {
             var transactions = await _unitOfWork.TransactionRepository.GetAll();
 
@@ -60,7 +54,26 @@ namespace FinTrack.Services.Services
                     transactions = transactions.Where(x => x.Description.ToLower().Contains(filters.Description.ToLower()));
                 }
             }
-            return transactions;
+            var pagedTransactions = PagedList<object>.Create(transactions, filters.PageNumber, filters.PageSize);
+
+            if (pagedTransactions.Any())
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.information.ToString(), Description = "Registros de transacciones recuperados correctamente" } },
+                    Pagination = pagedTransactions,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            else
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.warning.ToString(), Description = "No fue posible recuperar la cantidad de registros de transacciones" } },
+                    Pagination = pagedTransactions,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
         }
 
         public async Task<Transaction> GetTransactionByIdAsync(int id)
@@ -68,7 +81,7 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.TransactionRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<Transaction>> GetAllTransactionsDapperAsync(TransactionQueryFilter filters)
+        public async Task<ResponseData> GetAllTransactionsDapperAsync(TransactionQueryFilter filters)
         {
             var transactions = await _unitOfWork.TransactionRepository.GetAllTransactionsDapperAsync();
             if (filters != null)
@@ -100,12 +113,26 @@ namespace FinTrack.Services.Services
                     transactions = transactions.Where(x => x.Description.ToLower().Contains(filters.Description.ToLower()));
                 }
             }
-            return transactions;
-        }
+            var pagedTransactions = PagedList<object>.Create(transactions, filters.PageNumber, filters.PageSize);
 
-        public async Task<Transaction> GetTransactionByIdDapperAsync(int id)
-        {
-            return await _unitOfWork.TransactionRepository.GetTransactionByIdDapperAsync(id);
+            if (pagedTransactions.Any())
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.information.ToString(), Description = "Registros de transacciones recuperados correctamente" } },
+                    Pagination = pagedTransactions,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            else
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.warning.ToString(), Description = "No fue posible recuperar la cantidad de registros de transacciones" } },
+                    Pagination = pagedTransactions,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
         }
 
         public async Task InsertTransaction(Transaction transaction)
@@ -113,17 +140,32 @@ namespace FinTrack.Services.Services
             var user = await _unitOfWork.UserRepository.GetById(transaction.UserId);
             if (user == null)
             {
-                throw new BusinessException("El usuario no existe", HttpStatusCode.BadRequest);
+                var errMessage = "El usuario no existe";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
 
             if (ContainsForbiddenContent(transaction.Description))
             {
-                throw new BusinessException("La descripción contiene palabras no permitidas.", HttpStatusCode.UnprocessableEntity);
+                var errMessage = "La descripción contiene palabras no permitidas.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.UnprocessableEntity);
             }
-            
+
             if (transaction.Date > DateTime.Now.AddDays(30))
             {
-                throw new BusinessException("No se permite registrar transacciones con más de 30 días a futuro.", HttpStatusCode.BadRequest);
+                var errMessage = "No se permite registrar transacciones con más de 30 días a futuro.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
 
             var userTransactions = await _unitOfWork.TransactionRepository.GetTransactionsByUserIdDapperAsync(transaction.UserId);
@@ -137,7 +179,12 @@ namespace FinTrack.Services.Services
                     var minutesSinceLast = (DateTime.Now - lastTransaction.Date).TotalMinutes;
                     if (minutesSinceLast < 1)
                     {
-                        throw new BusinessException("Usuarios nuevos deben esperar 1 minuto entre registros.", HttpStatusCode.TooManyRequests);
+                        var errMessage = "Usuarios nuevos deben esperar 1 minuto entre registros.";
+                        var responsePost = new ResponseData()
+                        {
+                            Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                        };
+                        throw new BusinessException(errMessage, HttpStatusCode.TooManyRequests);
                     }
                 }
             }
@@ -152,19 +199,39 @@ namespace FinTrack.Services.Services
 
             if (existing == null)
             {
-                throw new BusinessException("La transacción no existe para ser editada", HttpStatusCode.BadRequest);
+                var errMessage = "La transacción no existe para ser editada";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
             if (existing.UserId != transaction.UserId)
             {
-                throw new BusinessException("No tienes permiso para editar esta transacción.", HttpStatusCode.Forbidden);
+                var errMessage = "No tienes permiso para editar esta transacción.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.Forbidden);
             }
             if (existing.Date < DateTime.Now.AddDays(-60))
             {
-                throw new BusinessException("No se pueden editar transacciones con más de 60 días de antigüedad.", HttpStatusCode.BadRequest);
+                var errMessage = "No se pueden editar transacciones con más de 60 días de antigüedad.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
             if (!existing.Type.Equals(transaction.Type, StringComparison.OrdinalIgnoreCase))
             {
-                throw new BusinessException("No se permite cambiar el tipo de transacción.", HttpStatusCode.BadRequest);
+                var errMessage = "No se permite cambiar el tipo de transacción.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
             if (string.IsNullOrWhiteSpace(transaction.Description))
             {
@@ -172,12 +239,22 @@ namespace FinTrack.Services.Services
             }
             if (ContainsForbiddenContent(transaction.Description))
             {
-                throw new BusinessException("La nueva descripción contiene palabras no permitidas.", HttpStatusCode.UnprocessableEntity);
+                var errMessage = "La nueva descripción contiene palabras no permitidas.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.UnprocessableEntity);
             }
             var category = _unitOfWork.CategoryRepository.GetById(transaction.CategoryId).Result;
             if (category == null || category.UserId != transaction.UserId)
             {
-                throw new BusinessException("La categoría seleccionada no es válida o no te pertenece.", HttpStatusCode.BadRequest);
+                var errMessage = "La categoría seleccionada no es válida o no te pertenece.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
 
             _unitOfWork.TransactionRepository.Update(transaction);
@@ -189,11 +266,21 @@ namespace FinTrack.Services.Services
             var existing = await _unitOfWork.TransactionRepository.GetById(id);
             if (existing == null)
             {
-                throw new BusinessException("La transacción no existe.", HttpStatusCode.NotFound);
+                var errMessage = "La transacción no existe.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.NotFound);
             }
             if (existing.Date < DateTime.Now.AddDays(-60))
             {
-                throw new BusinessException("No se pueden eliminar transacciones con más de 60 días de antigüedad.", HttpStatusCode.BadRequest);
+                var errMessage = "No se pueden eliminar transacciones con más de 60 días de antigüedad.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
             if (existing.Type.Equals("Income", StringComparison.OrdinalIgnoreCase))
             {
@@ -201,7 +288,12 @@ namespace FinTrack.Services.Services
 
                 if (saldoActual - existing.Amount < 0)
                 {
-                    throw new BusinessException("No puedes eliminar este ingreso porque tu saldo quedaría en negativo.", HttpStatusCode.BadRequest);
+                    var errMessage = "No puedes eliminar este ingreso porque tu saldo quedaría en negativo.";
+                    var responsePost = new ResponseData()
+                    {
+                        Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                    };
+                    throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
                 }
             }
 
@@ -227,7 +319,12 @@ namespace FinTrack.Services.Services
             }
             if (fechaConsulta < fechaActual.AddMonths(-24))
             {
-                throw new BusinessException("Solo se permite consultar balances de hasta 24 meses atrás.", HttpStatusCode.BadRequest);
+                var errMessage = "Solo se permite consultar balances de hasta 24 meses atrás.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
 
             var balance = await _unitOfWork.TransactionRepository.GetMonthlyBalanceDapperAsync(userId, month, year);

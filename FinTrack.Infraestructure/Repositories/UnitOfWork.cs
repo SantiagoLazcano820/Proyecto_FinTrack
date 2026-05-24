@@ -11,6 +11,7 @@ namespace FinTrack.Infrastructure.Repositories
     {
         private readonly FinTrackContext _context;
         private readonly IDapperContext _dapper;
+        private readonly ISecurityRepository _securityRepository;
         private ITransactionRepository _transactionRepository;
         private IUserRepository _userRepository;
         private ICategoryRepository _categoryRepository;
@@ -31,6 +32,9 @@ namespace FinTrack.Infrastructure.Repositories
 
         public ICategoryRepository CategoryRepository =>
             _categoryRepository ??= new CategoryRepository(_context, _dapper);
+
+        public ISecurityRepository SecurityRepository =>
+            _securityRepository ?? new SecurityRepository(_context);
 
         public void Dispose()
         {

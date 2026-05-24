@@ -12,6 +12,7 @@ namespace FinTrack.Infrastructure.Mappings
             CreateMap<UserDto, User>()
             .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => 1))
             .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => src.RoleId == 0 ? 2 : src.RoleId));
+            CreateMap<Security, SecurityDto>().ReverseMap();
         }
     }
 }

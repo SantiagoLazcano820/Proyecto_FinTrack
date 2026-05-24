@@ -2,14 +2,31 @@
 
 namespace FinTrack.Core.Helpers
 {
+    /// <summary>
+    /// Representa una [Entidad] helper de procesos y utilidades lógicas globales en el sistema.
+    /// </summary>
+    /// <remarks>
+    /// Esta clase estática provee herramientas y algoritmos de soporte técnico recurrentes, tal como la normalización, 
+    /// validación y conversión de formatos de tipos complejos dentro de la aplicación.
+    /// </remarks>
     public class Procesos
     {
+        /// <summary>
+        /// Evalúa y analiza un texto de entrada para transformarlo de manera flexible en una fecha estructurada válida.
+        /// </summary>
+        /// <remarks>
+        /// Intenta emparejar la cadena recibida contra una colección estricta de formatos comunes de fecha (tanto de 12 horas, 24 horas, esquemas regionales latinos y anglosajones) 
+        /// utilizando la configuración cultural local de Bolivia (es-BO). Si tiene éxito, devuelve la fecha normalizada en formato dd/MM/yyyy.
+        /// </remarks>
+        /// <param name="fechaTexto">La cadena de texto original que representa la fecha ingresada por el usuario o cliente.</param>
+        /// <returns>Una cadena de texto con la fecha en formato estandarizado "dd/MM/yyyy", o nulo si no se pudo parsear contra ningún formato válido.</returns>
+        /// <example>23/05/2026</example>
         public static string ParseFechaFlexible(string? fechaTexto)
         {
             if (string.IsNullOrWhiteSpace(fechaTexto))
                 return null;
 
-            fechaTexto = fechaTexto.Replace(" ", " ").Trim();
+            fechaTexto = fechaTexto.Replace(" ", " ").Trim();
 
             string[] formatos = new[]
             {

@@ -14,6 +14,7 @@ namespace FinTrack.Infrastructure.Mappings
                 .ForMember(dest => dest.Date, opt => opt.ConvertUsing<StringToDateTimeConverter, string>())
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId));
+            CreateMap<Security, SecurityDto>().ReverseMap();
         }
     }
 

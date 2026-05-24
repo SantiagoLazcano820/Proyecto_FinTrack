@@ -1,28 +1,24 @@
-﻿using FinTrack.Core.Entities;
+﻿using FinTrack.Core.CustomEntities;
+using FinTrack.Core.Entities;
+using FinTrack.Core.Enum;
 using FinTrack.Core.Exceptions;
 using FinTrack.Core.Interfaces;
 using FinTrack.Core.QueryFilters;
 using FinTrack.Services.Interfaces;
+using Microsoft.Extensions.Hosting;
 using System.Net;
 
 namespace FinTrack.Services.Services
 {
     public class CategoryService : ICategoryService
     {
-        //private readonly IBaseRepository<Category> _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
-
-        //public CategoryService(IBaseRepository<Category> categoryRepository)
-        //{
-        //    _categoryRepository = categoryRepository;
-        //}
-
         public CategoryService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(CategoryQueryFilter filters)
+        public async Task<ResponseData> GetAllCategoriesAsync(CategoryQueryFilter filters)
         {
             var categories = await _unitOfWork.CategoryRepository.GetAll();
             if (filters != null)
@@ -36,7 +32,26 @@ namespace FinTrack.Services.Services
                     categories = categories.Where(x => x.Name.ToLower().Contains(filters.Name.ToLower()));
                 }
             }
-            return categories;
+            var pagedCategories = PagedList<object>.Create(categories, filters.PageNumber, filters.PageSize);
+
+            if (pagedCategories.Any())
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.information.ToString(), Description = "Categorías recuperadas correctamente" } },
+                    Pagination = pagedCategories,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            else
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.warning.ToString(), Description = "No se encontraron categorías con los filtros aplicados" } },
+                    Pagination = pagedCategories,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
         }
 
         public async Task<Category> GetCategoryByIdAsync(int id)
@@ -44,7 +59,7 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.CategoryRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesDapperAsync(CategoryQueryFilter filters)
+        public async Task<ResponseData> GetAllCategoriesDapperAsync(CategoryQueryFilter filters)
         {
             var categories = await _unitOfWork.CategoryRepository.GetAllCategoriesDapperAsync();
             if (filters != null)
@@ -58,12 +73,26 @@ namespace FinTrack.Services.Services
                     categories = categories.Where(x => x.Name.ToLower().Contains(filters.Name.ToLower()));
                 }
             }
-            return categories;
-        }
+            var pagedCategories = PagedList<object>.Create(categories, filters.PageNumber, filters.PageSize);
 
-        public async Task<Category> GetCategoryByIdDapperAsync(int id)
-        {
-            return await _unitOfWork.CategoryRepository.GetCategoryByIdDapperAsync(id);
+            if (pagedCategories.Any())
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.information.ToString(), Description = "Categorías recuperadas correctamente" } },
+                    Pagination = pagedCategories,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            else
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.warning.ToString(), Description = "No se encontraron categorías con los filtros aplicados" } },
+                    Pagination = pagedCategories,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
         }
 
         public async Task InsertCategory(Category category)
@@ -72,14 +101,24 @@ namespace FinTrack.Services.Services
 
             if (userCategories.Count() >= 15)
             {
-                throw new BusinessException("Límite alcanzado: Máximo 15 categorías activas.", HttpStatusCode.Conflict);
+                var errMessage = "Límite alcanzado: Máximo 15 categorías activas.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.Conflict);
             }
 
             var isDuplicate = userCategories.Any(c => c.Name.ToLower() == category.Name.ToLower());
 
             if (isDuplicate)
             {
-                throw new BusinessException($"Ya tienes una categoría llamada '{category.Name}'.", HttpStatusCode.BadRequest);
+                var errMessage = $"Ya tienes una categoría llamada '{category.Name}'.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
 
             await _unitOfWork.CategoryRepository.Insert(category);
@@ -91,7 +130,12 @@ namespace FinTrack.Services.Services
             var existing = _unitOfWork.CategoryRepository.GetById(category.Id);
             if (existing == null)
             {
-                throw new BusinessException("La Categoria no existe", HttpStatusCode.BadRequest);
+                var errMessage = "La Categoria no existe";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
             _unitOfWork.CategoryRepository.Update(category);
             _unitOfWork.SaveChangesAsync();
@@ -103,7 +147,12 @@ namespace FinTrack.Services.Services
 
             if (existing == null || existing.UserId != userId)
             {
-                throw new BusinessException("No tienes permiso para eliminar esta categoría o no existe.", HttpStatusCode.Forbidden);
+                var errMessage = "No tienes permiso para eliminar esta categoría o no existe.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.Forbidden);
             }
 
             var hasTransactions = (await _unitOfWork.TransactionRepository.GetTransactionsByUserIdDapperAsync(userId))
@@ -111,7 +160,12 @@ namespace FinTrack.Services.Services
 
             if (hasTransactions)
             {
-                throw new BusinessException("No se puede eliminar: Esta categoría tiene movimientos registrados.", HttpStatusCode.BadRequest);
+                var errMessage = "No se puede eliminar: Esta categoría tiene movimientos registrados.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
 
             await _unitOfWork.CategoryRepository.Delete(id);

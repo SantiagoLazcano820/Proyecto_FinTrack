@@ -1,4 +1,6 @@
-﻿using FinTrack.Core.Entities;
+﻿using FinTrack.Core.CustomEntities;
+using FinTrack.Core.Entities;
+using FinTrack.Core.Enum;
 using FinTrack.Core.Exceptions;
 using FinTrack.Core.Interfaces;
 using FinTrack.Core.QueryFilters;
@@ -10,20 +12,14 @@ namespace FinTrack.Services.Services
 {
     public class UserService : IUserService
     {
-        //private readonly IBaseRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
-
-        //public UserService(IBaseRepository<User> userRepository)
-        //{
-        //    _userRepository = userRepository;
-        //}
 
         public UserService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync(UserQueryFilter filters)
+        public async Task<ResponseData> GetAllUsersAsync(UserQueryFilter filters)
         {
             var users = await _unitOfWork.UserRepository.GetAll();
             if (filters != null)
@@ -41,7 +37,26 @@ namespace FinTrack.Services.Services
                     users = users.Where(x => x.Email.ToLower().Contains(filters.Email.ToLower()));
                 }
             }
-            return users;
+            var pagedUsers = PagedList<object>.Create(users, filters.PageNumber, filters.PageSize);
+
+            if (pagedUsers.Any())
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.information.ToString(), Description = "Registros de usuarios recuperados correctamente" } },
+                    Pagination = pagedUsers,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            else
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.warning.ToString(), Description = "No fue posible recuperar la cantidad de registros de usuarios" } },
+                    Pagination = pagedUsers,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
         }
 
         public async Task<User> GetUserByIdAsync(int id)
@@ -49,7 +64,7 @@ namespace FinTrack.Services.Services
             return await _unitOfWork.UserRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersDapperAsync(UserQueryFilter filters)
+        public async Task<ResponseData> GetAllUsersDapperAsync(UserQueryFilter filters)
         {
             var users = await _unitOfWork.UserRepository.GetAllUsersDapperAsync();
             if (filters != null)
@@ -67,12 +82,26 @@ namespace FinTrack.Services.Services
                     users = users.Where(x => x.Email.ToLower().Contains(filters.Email.ToLower()));
                 }
             }
-            return users;
-        }
+            var pagedUsers = PagedList<object>.Create(users, filters.PageNumber, filters.PageSize);
 
-        public async Task<User> GetUserByIdDapperAsync(int id)
-        {
-            return await _unitOfWork.UserRepository.GetUserByIdDapperAsync(id);
+            if (pagedUsers.Any())
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.information.ToString(), Description = "Registros de usuarios recuperados correctamente" } },
+                    Pagination = pagedUsers,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            else
+            {
+                return new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.warning.ToString(), Description = "No fue posible recuperar la cantidad de registros de usuarios" } },
+                    Pagination = pagedUsers,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
         }
 
         public async Task InsertUser(User user)
@@ -80,13 +109,23 @@ namespace FinTrack.Services.Services
             var users = await _unitOfWork.UserRepository.GetAll();
             if (users.Any(u => u.Email.ToLower() == user.Email.ToLower()))
             {
-                throw new BusinessException("El correo electrónico ya está registrado.", HttpStatusCode.Conflict);
+                var errMessage = "El correo electrónico ya está registrado.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.Conflict);
             }
 
             string[] dominiosPermitidos = { "@gmail.com", "@outlook.com", "@ucb.edu.bo" };
             if (!dominiosPermitidos.Any(d => user.Email.EndsWith(d)))
             {
-                throw new BusinessException("Dominio de correo no permitido.", HttpStatusCode.Forbidden);
+                var errMessage = "Dominio de correo no permitido.";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.Forbidden);
             }
 
             user.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.Name.Trim().ToLower());
@@ -102,7 +141,12 @@ namespace FinTrack.Services.Services
             var existingUser = _unitOfWork.UserRepository.GetById(user.Id);
             if (existingUser == null)
             {
-                throw new BusinessException("El usuario no existe", HttpStatusCode.BadRequest);
+                var errMessage = "El usuario no existe";
+                var responsePost = new ResponseData()
+                {
+                    Messages = new Message[] { new() { Type = TypeMessage.error.ToString(), Description = errMessage } },
+                };
+                throw new BusinessException(errMessage, HttpStatusCode.BadRequest);
             }
 
             user.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.Name.Trim().ToLower());
@@ -137,33 +181,6 @@ namespace FinTrack.Services.Services
             await _unitOfWork.UserRepository.Delete(id);
             await _unitOfWork.SaveChangesAsync();
             return true;
-        }
-
-        public async Task<User> Authenticate(string email, string password)
-        {
-            var horaActual = DateTime.Now.Hour;
-            if (horaActual >= 2 && horaActual < 4)
-            {
-                throw new BusinessException("Mantenimiento: Acceso disponible a partir de las 04:00 AM.", HttpStatusCode.ServiceUnavailable);
-            }
-
-            var user = await _unitOfWork.UserRepository.GetUserByEmailDapperAsync(email);
-
-            if (user != null)
-            {
-                if (user.IsActive == 0)
-                {
-                    throw new BusinessException("La cuenta se encuentra suspendida o inactiva.", HttpStatusCode.Forbidden);
-                }
-
-                bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
-                if (isValid)
-                {
-                    user.Password = null;
-                    return user;
-                }
-            }
-            throw new BusinessException("El correo o la contraseña son incorrectos.", HttpStatusCode.Unauthorized);
         }
     }
 }

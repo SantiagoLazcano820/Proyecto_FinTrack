@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "P6rqTVAzr8Q=",
+  "dgSpecHash": "ZFHsG80ZttQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack\\FinTrack.Core.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.openapi\\2.4.1\\microsoft.openapi.2.4.1.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\10.1.7\\swashbuckle.aspnetcore.annotations.10.1.7.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\10.1.7\\swashbuckle.aspnetcore.swagger.10.1.7.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\10.1.7\\swashbuckle.aspnetcore.swaggergen.10.1.7.nupkg.sha512"
+  ],
   "logs": []
 }
