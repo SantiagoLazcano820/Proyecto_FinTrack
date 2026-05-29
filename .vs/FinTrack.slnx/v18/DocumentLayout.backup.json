@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|solutionrelative:fintrack.api\\controllers\\securitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{AE23106E-DEBC-4FFE-6246-1F61F0ED8A48}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.infraestructure\\repositories\\securityrespository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE23106E-DEBC-4FFE-6246-1F61F0ED8A48}|FinTrack.Infraestructure\\FinTrack.Infraestructure.csproj|solutionrelative:fintrack.infraestructure\\repositories\\securityrespository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|c:\\users\\santiago\\documents\\tec web l\\fintrack\\fintrack.api\\controllers\\tokencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACE6C3EE-87D5-CD45-A33C-58789B749E7E}|FinTrack.Api\\FinTrack.Api.csproj|solutionrelative:fintrack.api\\controllers\\tokencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -28,22 +32,35 @@
               "RelativeDocumentMoniker": "FinTrack.Api\\Controllers\\SecurityController.cs",
               "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Controllers\\SecurityController.cs",
               "RelativeToolTip": "FinTrack.Api\\Controllers\\SecurityController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-24T15:42:38.211Z",
+              "WhenOpened": "2026-05-28T23:36:41.541Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "SecurityRespository.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Repositories\\SecurityRespository.cs",
+              "RelativeDocumentMoniker": "FinTrack.Infraestructure\\Repositories\\SecurityRespository.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Infraestructure\\Repositories\\SecurityRespository.cs",
+              "RelativeToolTip": "FinTrack.Infraestructure\\Repositories\\SecurityRespository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T23:32:31.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "TokenController.cs",
               "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Controllers\\TokenController.cs",
               "RelativeDocumentMoniker": "FinTrack.Api\\Controllers\\TokenController.cs",
               "ToolTip": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\Controllers\\TokenController.cs",
               "RelativeToolTip": "FinTrack.Api\\Controllers\\TokenController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-24T15:42:37.06Z",
+              "WhenOpened": "2026-05-28T22:51:45.082Z",
               "EditorCaption": ""
             }
           ]

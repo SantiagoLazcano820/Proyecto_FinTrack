@@ -20,11 +20,13 @@ namespace FinTrack.Api.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly ISecurityService _securityService;
+        private readonly IPasswordService _passwordService;
 
-        public TokenController(IConfiguration configuration, ISecurityService securityService)
+        public TokenController(IConfiguration configuration, ISecurityService securityService, IPasswordService passwordService)
         {
             _configuration = configuration;
             _securityService = securityService;
+            _passwordService = passwordService;
         }
 
         /// <summary>
@@ -40,17 +42,36 @@ namespace FinTrack.Api.Controllers
         /// <response code="400">Petición errónea: El usuario y la contraseña enviados son idénticos</response>
         /// <response code="401">No autorizado: El correo o la contraseña son incorrectos</response>
         /// <response code="503">Servicio no disponible: Restricción horaria por mantenimiento del sistema</response>
+        /// <response code="403">Prohibido: No cuenta con los privilegios de rol necesarios</response>
         [HttpPost]
+        [AllowAnonymous] 
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(object))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.ServiceUnavailable)]
-        public async Task<IActionResult> Authentication(UserLogin userLogin)
+        public async Task<IActionResult> Login(UserLogin userLogin)
+        {
+            var validation = await IsValidUser(userLogin);
+            if (validation.Item1)
+            {
+                var token = GenerateToken(validation.Item2);
+                return Ok(new { token });
+            }
+            return Unauthorized();
+        }
+
+        /// <summary>
+        /// Valida la existencia del identificador de usuario y verifica el hash de la contraseña proporcionada.
+        /// </summary>
+        private async Task<(bool, Security)> IsValidUser(UserLogin userLogin)
         {
             var securityUser = await _securityService.GetLoginByCredentials(userLogin);
-
-            var token = GenerateToken(securityUser);
-            return Ok(new { token });
+            if (securityUser == null)
+            {
+                return (false, null!);
+            }
+            var isValid = _passwordService.Check(securityUser.Password, userLogin.Password);
+            return (isValid, securityUser);
         }
 
         /// <summary>
@@ -70,15 +91,13 @@ namespace FinTrack.Api.Controllers
                 new Claim("Name", security.Name),
                 new Claim(ClaimTypes.Role, security.Role.ToString()),
             };
-
             var payload = new JwtPayload(
                 issuer: _configuration["Authentication:Issuer"],
                 audience: _configuration["Authentication:Audience"],
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddMinutes(2) // Mantener los 2 minutos fijados por tu docente
+                expires: DateTime.UtcNow.AddMinutes(2)
             );
-
             var token = new JwtSecurityToken(header, payload);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

@@ -64,6 +64,7 @@ namespace FinTrack.Api
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddSingleton<IPasswordService, PasswordService>();
 
             // --- AUTOMAPPER ---
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -142,6 +143,8 @@ namespace FinTrack.Api
                         )
                     };
             });
+
+            builder.Services.Configure<PasswordOptions>(builder.Configuration.GetSection("PasswordOptions"));
 
             // Registrar Servicios de Aplicación
             builder.Services.AddTransient<ISecurityService, SecurityService>();

@@ -13,9 +13,9 @@ namespace FinTrack.Infrastructure.Repositories
     {
         public SecurityRepository(FinTrackContext context) : base(context) { }
 
-        public async Task<Security> GetLoginByCredentials(UserLogin login)
+        public async Task<Security> GetLoginByCredentials(UserLogin userLogin)
         {
-            return await _entities.FirstOrDefaultAsync(x => x.Login == login.User && x.Password == login.Password);
+            return await _entities.FirstOrDefaultAsync(x => x.Login == userLogin.User);
         }
     }
 }
