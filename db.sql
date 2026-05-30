@@ -2,7 +2,15 @@ DROP DATABASE IF EXISTS DbFinTrack;
 CREATE DATABASE DbFinTrack;
 USE DbFinTrack;
 
--- 1. TABLAS
+CREATE TABLE Security (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Login VARCHAR(50) NOT NULL,
+    Password VARCHAR(200) NOT NULL,
+    Name VARCHAR(100) NOT NULL,
+    Role VARCHAR(15) NOT NULL,
+    PRIMARY KEY (Id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE Role (
     Id INT NOT NULL AUTO_INCREMENT,
     Name VARCHAR(20) NOT NULL, 
@@ -74,6 +82,12 @@ INSERT INTO User (RoleId, Name, LastName, Email, Password, IsActive) VALUES
 (2, 'Renata', 'Reyes', 'reny.r@ucb.edu.bo', 'Pass123!', 0),
 (2, 'Sebastián', 'Osorio', 'seba.o@gmail.com', 'Pass123!', 1),
 (1, 'Admin', 'Root', 'admin@ucb.edu.bo', 'Ucb.2025', 1);
+
+-- Sembrado de la tabla Security con hashes PBKDF2 correspondientes a sus claves
+INSERT INTO Security (Login, Password, Name, Role) VALUES 
+('admin@ucb.edu.bo', '1000.wHzn4g1ZG/Cjy6FziJNZeQ==.jIO0ml54qGCgMBqRRWsGnT7anbKjLNzuGEWpzmDo+R8=', 'Admin Root', 'Admin'),
+('santiago@ucb.edu.bo', '1000.98l8wKiSh5ro7Khwl/06Cg==.CFjCfX1WjKmK8ohvjVbphr8YbO7jjyPw6X4SakVsox4=', 'Santiago Lazcano', 'Admin'),
+('ana.garcia@gmail.com', '1000.98l8wKiSh5ro7Khwl/06Cg==.CFjCfX1WjKmK8ohvjVbphr8YbO7jjyPw6X4SakVsox4=', 'Ana García', 'StandardUser');
 
 INSERT INTO Category (UserId, Name, Description) SELECT Id, 'Sueldo', 'Ingreso mensual' FROM User;
 INSERT INTO Category (UserId, Name, Description) SELECT Id, 'Transporte', 'Gasolina y micro' FROM User;

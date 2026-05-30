@@ -1,4 +1,4 @@
-﻿using FinTrack.Core.CustomEntities;
+using FinTrack.Core.CustomEntities;
 using FinTrack.Core.Entities;
 using FinTrack.Core.Enum;
 using FinTrack.Services.Interfaces;
@@ -71,6 +71,7 @@ namespace FinTrack.Api.Controllers
                 return (false, null!);
             }
             var isValid = _passwordService.Check(securityUser.Password, userLogin.Password);
+            securityUser.Password = null!;
             return (isValid, securityUser);
         }
 

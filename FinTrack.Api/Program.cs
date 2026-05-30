@@ -98,6 +98,9 @@ namespace FinTrack.Api
                 options.IncludeXmlComments(xmlPath);
                 options.EnableAnnotations();
 
+                // Definición de seguridad para el botón Authorize de Swagger
+                options.DocumentFilter<FinTrack.Api.Filters.BearerSecurityDocumentFilter>();
+                options.OperationFilter<FinTrack.Api.Filters.AuthorizeCheckOperationFilter>();
             });
 
             //Configurar JWT

@@ -1,0 +1,1163 @@
+{
+  "info": {
+    "_postman_id": "a90b6f5b-c20b-4fc1-a232-f8bd7cce2773",
+    "name": "FinTrack API - Colección de Evaluación",
+    "description": "Colección completa de solicitudes HTTP organizada para las evaluaciones de FinTrack API (.NET 10). Incluye peticiones para el 2do, 3er y 4to examen, abarcando autenticación JWT, balance dapper, validaciones de reglas de negocio y operaciones CRUD.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Gestión de Usuarios",
+      "item": [
+        {
+          "name": "Listar Usuarios (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/User/dto/mapper/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "User",
+                "dto",
+                "mapper",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Usuario por ID (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/User/dto/mapper/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "User",
+                "dto",
+                "mapper",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Usuarios Dapper (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/User/dto/mapper/dapper/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "User",
+                "dto",
+                "mapper",
+                "dapper",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Usuario (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Juan\",\n  \"lastName\": \"Perez\",\n  \"email\": \"juan.perez@example.com\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/User/dto/mapper/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "User",
+                "dto",
+                "mapper",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Usuario (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"name\": \"Juan Modificado\",\n  \"lastName\": \"Perez\",\n  \"email\": \"juan.perez@example.com\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/User/dto/mapper/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "User",
+                "dto",
+                "mapper",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Usuario (DELETE)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/User/dto/mapper/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "User",
+                "dto",
+                "mapper",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4to Examen - Autenticación y Seguridad",
+      "item": [
+        {
+          "name": "POST api/Token (Login Santiago - Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set(\"token\", jsonData.token);",
+                  "    console.log(\"Token JWT guardado automáticamente en la variable de colección.\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"santiago@ucb.edu.bo\",\n  \"password\": \"Pass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST api/Token (Login Ana - StandardUser)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"ana.garcia@gmail.com\",\n  \"password\": \"Pass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET api/Security (Probar Conexión Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Security",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Security"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST api/Security (Registrar nueva credencial - Solo Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"nuevo_usuario@mail.com\",\n  \"password\": \"Password123!\",\n  \"name\": \"Nuevo Usuario\",\n  \"role\": \"StandardUser\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Security",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Security"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3er Examen - Balances y Reglas Avanzadas",
+      "item": [
+        {
+          "name": "B1 - Balance Mensual Actual (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/balance/dapper?userId=1&month=4&year=2026",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "balance",
+                "dapper"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "year",
+                  "value": "2026"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "B2 - Balance Mes Futuro (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/balance/dapper?userId=1&month=12&year=2026",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "balance",
+                "dapper"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                },
+                {
+                  "key": "month",
+                  "value": "12"
+                },
+                {
+                  "key": "year",
+                  "value": "2026"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "B3 - Error Balance Histórico > 24 Meses (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/balance/dapper?userId=1&month=1&year=2020",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "balance",
+                "dapper"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                },
+                {
+                  "key": "month",
+                  "value": "1"
+                },
+                {
+                  "key": "year",
+                  "value": "2020"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E5 - Error Cambiar Tipo de Transacción (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 25,\n  \"userId\": 1,\n  \"categoryId\": 25,\n  \"amount\": 500,\n  \"type\": \"Expense\",\n  \"date\": \"2026-04-29T10:00:00\",\n  \"description\": \"Intento de cambiar de Income a Expense\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "25"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E6 - Error Asignar Categoría Ajena (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 25,\n  \"userId\": 1,\n  \"categoryId\": 99,\n  \"amount\": 500,\n  \"type\": \"Income\",\n  \"date\": \"2026-04-29T10:00:00\",\n  \"description\": \"Categoría que no pertenece al usuario\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "25"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E2 - Error Editar Transacción Antigua (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 99,\n  \"userId\": 1,\n  \"categoryId\": 25,\n  \"amount\": 500,\n  \"type\": \"Income\",\n  \"date\": \"2026-04-29T10:00:00\",\n  \"description\": \"Transacción antigua\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E3 - Error Eliminar Transacción Antigua (DELETE)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E4 - Error Eliminar Ingreso deja Saldo Negativo (DELETE)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "25"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E1 - Editar Transacción OK (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 25,\n  \"userId\": 1,\n  \"categoryId\": 25,\n  \"amount\": 6000,\n  \"type\": \"Income\",\n  \"date\": \"2026-04-29T10:00:00\",\n  \"description\": \"(Editado el 30/04/2026)\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "25"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "F1 - Filtro Transacciones (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper?userId=1&type=Expense",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                },
+                {
+                  "key": "type",
+                  "value": "Expense"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "F2 - Filtro Categorías (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Category/dto/mapper?userId=1&name=Sueldo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Category",
+                "dto",
+                "mapper"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                },
+                {
+                  "key": "name",
+                  "value": "Sueldo"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2do Examen - CRUD Categorías y Transacciones",
+      "item": [
+        {
+          "name": "Crear categoría (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Deportes\",\n  \"description\": \"Mensualidad del gym\",\n  \"isActive\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Category/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Category",
+                "dto",
+                "mapper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Categoría error de duplicados (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Deportes\",\n  \"description\": \"Mensualidad del gym\",\n  \"isActive\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Category/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Category",
+                "dto",
+                "mapper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lista de categorías (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Category/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Category",
+                "dto",
+                "mapper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transacción ingresos (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"categoryId\": 1,\n  \"amount\": 3000,\n  \"type\": \"Income\",\n  \"date\": \"2026-03-30T10:00:00\",\n  \"description\": \"Depósito de Sueldo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transacción gastos (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"categoryId\": 2,\n  \"amount\": 45.5,\n  \"type\": \"Expense\",\n  \"date\": \"2026-03-30T12:00:00\",\n  \"description\": \"Compra de Almuerzo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transacción negativo (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"categoryId\": 2,\n  \"amount\": -100,\n  \"type\": \"Expense\",\n  \"date\": \"2026-03-30T12:00:00\",\n  \"description\": \"Compra de Almuerzo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transacción palabras prohibidas (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"categoryId\": 1,\n  \"amount\": 500,\n  \"type\": \"Expense\",\n  \"date\": \"2026-03-30T10:00:00\",\n  \"description\": \"Esto es una estafa\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener transacción por ID (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar transacción (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"userId\": 1,\n  \"categoryId\": 1,\n  \"amount\": 5500,\n  \"type\": \"Income\",\n  \"date\": \"2026-03-01T09:00:00\",\n  \"description\": \"Sueldo de Marzo (Corregido)\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Transacción (DELETE)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Transaction/dto/mapper/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Transaction",
+                "dto",
+                "mapper",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener categoría (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Category/dto/mapper/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Category",
+                "dto",
+                "mapper",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar categoría (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"name\": \"Alimentación Premium\",\n  \"description\": \"Gastos de restaurante y súper\",\n  \"isActive\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/Category/dto/mapper/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Category",
+                "dto",
+                "mapper",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar categoría (DELETE)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/Category/dto/mapper/1?userId=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "Category",
+                "dto",
+                "mapper",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5065",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

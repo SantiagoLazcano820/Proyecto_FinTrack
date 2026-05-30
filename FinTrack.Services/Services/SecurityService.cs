@@ -1,4 +1,4 @@
-﻿using FinTrack.Core.CustomEntities;
+using FinTrack.Core.CustomEntities;
 using FinTrack.Core.Entities;
 using FinTrack.Core.Enum;
 using FinTrack.Core.Exceptions;
@@ -27,9 +27,9 @@ namespace FinTrack.Core.Services
             var securityUser = await _unitOfWork.SecurityRepository.GetLoginByCredentials(userLogin);
             if (securityUser != null && securityUser.Role == RoleType.StandardUser)
             {
-                if (horaActual >= 2 && horaActual < 4)
+                if (horaActual >= 4 && horaActual < 6)
                 {
-                    var maintenanceMessage = "Mantenimiento: Acceso disponible a partir de las 04:00 AM.";
+                    var maintenanceMessage = "Mantenimiento: Acceso disponible a partir de las 06:00 AM.";
                     throw new BusinessException(maintenanceMessage, HttpStatusCode.ServiceUnavailable);
                 }
             }
@@ -38,7 +38,6 @@ namespace FinTrack.Core.Services
                 var authErrMessage = "El correo o la contraseña son incorrectos.";
                 throw new BusinessException(authErrMessage, HttpStatusCode.Unauthorized);
             }
-            securityUser.Password = null!;
             return securityUser;
         }
 
