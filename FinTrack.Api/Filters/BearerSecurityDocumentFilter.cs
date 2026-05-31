@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FinTrack.Api.Filters
@@ -9,14 +9,21 @@ namespace FinTrack.Api.Filters
     /// </summary>
     public class BearerSecurityDocumentFilter : IDocumentFilter
     {
-        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        public void Apply(OpenApiDocument openApiDoc, DocumentFilterContext context)
         {
-            swaggerDoc.Components ??= new OpenApiComponents();
-            swaggerDoc.Components.SecuritySchemes ??= new Dictionary<string, OpenApiSecurityScheme>();
-
-            if (!swaggerDoc.Components.SecuritySchemes.ContainsKey("Bearer"))
+            if (openApiDoc.Components == null)
             {
-                swaggerDoc.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
+                openApiDoc.Components = new OpenApiComponents();
+            }
+
+            if (openApiDoc.Components.SecuritySchemes == null)
+            {
+                openApiDoc.Components.SecuritySchemes = new Dictionary<string, IOpenApiSecurityScheme>();
+            }
+
+            if (!openApiDoc.Components.SecuritySchemes.ContainsKey("Bearer"))
+            {
+                openApiDoc.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Autenticación JWT usando el esquema Bearer. Escribe: 'Bearer {tu_token}'",
                     Name = "Authorization",

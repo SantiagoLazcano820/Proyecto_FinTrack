@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Dd3hN0MmP1o=",
+  "dgSpecHash": "Te8u48ZAkwQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Santiago\\Documents\\Tec Web l\\FinTrack\\FinTrack.Api\\FinTrack.Api.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.13\\microsoft.entityframeworkcore.analyzers.9.0.13.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.entityframeworkcore.design\\9.0.13\\microsoft.entityframeworkcore.design.9.0.13.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\9.0.13\\microsoft.entityframeworkcore.relational.9.0.13.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.extensions.apidescription.server\\10.0.0\\microsoft.extensions.apidescription.server.10.0.0.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.extensions.dependencymodel\\9.0.13\\microsoft.extensions.dependencymodel.9.0.13.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.0.1\\microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.0.1\\microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512",
@@ -46,6 +47,7 @@
     "C:\\Users\\Santiago\\.nuget\\packages\\nito.asyncex.tasks\\5.1.2\\nito.asyncex.tasks.5.1.2.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\nito.disposables\\2.2.1\\nito.disposables.2.2.1.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\9.0.0\\pomelo.entityframeworkcore.mysql.9.0.0.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\swashbuckle.aspnetcore\\10.1.7\\swashbuckle.aspnetcore.10.1.7.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\10.1.7\\swashbuckle.aspnetcore.annotations.10.1.7.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\10.1.7\\swashbuckle.aspnetcore.swagger.10.1.7.nupkg.sha512",
     "C:\\Users\\Santiago\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\10.1.7\\swashbuckle.aspnetcore.swaggergen.10.1.7.nupkg.sha512",

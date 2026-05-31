@@ -22,6 +22,19 @@ namespace FinTrack.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configuración base
+            builder.Configuration.Sources.Clear();
+            builder.Configuration
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Configuration.AddUserSecrets<Program>();
+            }
+
+
             // Add services to the container.
 
             #region Configurar la BD MySql
@@ -99,8 +112,8 @@ namespace FinTrack.Api
                 options.EnableAnnotations();
 
                 // Definición de seguridad para el botón Authorize de Swagger
-                options.DocumentFilter<FinTrack.Api.Filters.BearerSecurityDocumentFilter>();
-                options.OperationFilter<FinTrack.Api.Filters.AuthorizeCheckOperationFilter>();
+                //options.DocumentFilter<FinTrack.Api.Filters.BearerSecurityDocumentFilter>();
+                //options.OperationFilter<FinTrack.Api.Filters.AuthorizeCheckOperationFilter>();
             });
 
             //Configurar JWT

@@ -80,6 +80,10 @@
               "target": "Package",
               "version": "[9.0.13, )"
             },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[10.1.7, )"
+            },
             "Swashbuckle.AspNetCore.Annotations": {
               "target": "Package",
               "version": "[10.1.7, )"
